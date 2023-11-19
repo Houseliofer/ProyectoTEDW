@@ -33,6 +33,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './pages/login/login/login.component';
 import { RegisterComponent } from './pages/login/register/register.component';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { RegisterComponent } from './pages/login/register/register.component';
   ],
   providers:  [
     CartService,
-    StoreService
+    StoreService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
