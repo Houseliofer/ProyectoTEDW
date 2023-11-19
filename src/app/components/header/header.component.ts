@@ -1,14 +1,17 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Cart, CartItem } from 'src/app/models/cart.model';
 import { CartService } from 'src/app/services/cart.service';
 import { Router } from '@angular/router';
+import { SearchService } from 'src/app/services/search-service.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
 
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
+[x: string]: any;
+  searchKeyword: string = '';
 
   private _cart: Cart = { items: [] }
   itemsQuantity = 0;
@@ -27,7 +30,18 @@ export class HeaderComponent {
   }
 
   constructor(private cartService: CartService,
-              private router: Router) { }
+    private router: Router, private searchService: SearchService) { }
+
+    ngOnInit(): void {
+      this.searchService.searchKeyword$.subscribe(keyword => {
+        this.searchKeyword = keyword;
+      });
+    }
+  
+    search() {
+      // Puedes realizar acciones adicionales si es necesario
+      this.searchService.updateSearchKeyword(this.searchKeyword);
+    }
   getTotal(items: Array<CartItem>): number {
     return this.cartService.getTotal(items)
   }
@@ -35,19 +49,11 @@ export class HeaderComponent {
   onClearCart() {
     this.cartService.clearCart();
   }
-
-  //...
-
   onLogin() {
     this.router.navigate(['/login']);
   }
 
   onSignup() {
     this.router.navigate(['/signup']);
-  }
-
-  searchQuery: string = '';
-
-  onSearch() {
   }
 }

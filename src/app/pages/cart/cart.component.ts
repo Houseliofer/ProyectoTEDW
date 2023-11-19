@@ -12,14 +12,14 @@ export class CartComponent {
     name: 'shoes',
     price: 150,
     quantity: 1,
-    id: 1,
+    id: "1",
   },
   {
     product: 'https://via.placeholder.com/150',
     name: 'shoes',
     price: 150,
     quantity: 3,
-    id: 2,
+    id: "2",
   }
 ]};
 
