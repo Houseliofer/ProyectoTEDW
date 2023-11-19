@@ -19,5 +19,15 @@ export class StoreService {
   searchRecipes(word: String){
     return this.http.get<Product[]>(`${API_BASE}search/${word}`)
   }
+  // store.service.ts
+// store.service.ts
+getProductCategory(id: string): Observable<Product[]> {
+  // Log para verificar que se está recibiendo el ID de la categoría correctamente
+  console.log('Received Category ID in getProductCategory:', id);
+
+  return this.http.get<Product[]>(`${API_BASE}productsCategory/${id}`);
+}
+
+
 
 }

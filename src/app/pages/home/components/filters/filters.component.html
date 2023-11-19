@@ -8,7 +8,8 @@
         <mat-list-option [ngStyle]="{
             'list-style-type': 'none',
           }" *ngFor="let category of categories" [value]="category._id">
-            <button (click)="onShowCategory(category.categoria)">{{category.categoria}}</button>
+            <!-- filters.component.html -->
+<button (click)="onShowCategory(category)">{{category.categoria}}</button>
         </mat-list-option>
     </mat-selection-list>
 </mat-expansion-panel>
