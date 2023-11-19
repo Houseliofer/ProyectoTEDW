@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Cart, CartItem } from 'src/app/models/cart.model';
 import { CartService } from 'src/app/services/cart.service';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -43,5 +44,10 @@ export class HeaderComponent {
 
   onSignup() {
     this.router.navigate(['/signup']);
+  }
+
+  searchQuery: string = '';
+
+  onSearch() {
   }
 }

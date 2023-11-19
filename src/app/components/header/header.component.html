@@ -1,15 +1,34 @@
-<mat-toolbar class="max-w-7x1 mx-auto border-x justify-between">
-    <a routerLink="home">Code With Sloba Store</a>
-    <button mat-icon-button [matMenuTriggerFor]="menu">
-        <mat-icon 
-         [matBadge]="itemsQuantity"
-         [matBadgeHidden]="!itemsQuantity"
-            matBadgeColor="warn"
-        >shopping_cart</mat-icon>
-    </button>
-    <button mat-button (click)="onLogin()">Iniciar Sesión</button>
+<mat-toolbar class="bg-indigo-500 text-white justify-between">
 
-    <button mat-button (click)="onSignup()">Registro</button>
+    <a routerLink="home" class="font-bold">Título de la Página</a>
+    <!--Barra de busqueda-->
+    <!--Pon aqui todo el codigo que necesites para la barra de busqueda-->
+    <!--Utiliza ese estilo del input para que la barra de busqueda se vea bien-->
+    <input matInput class="bg-white text-gray-700 rounded-lg px-2" placeholder="Buscar...">
+    <!--Termina barra de busqueda-->
+    <div>
+        <button mat-button 
+                style="bottom: 5px;"
+                class="bg-white text-indigo-500 rounded-lg px-2 py-1.5 hover:bg-indigo-600 hover:text-white"
+            (click)="onLogin()">
+            <mat-icon class="text-indigo-500">login</mat-icon>
+            Iniciar Sesión
+        </button>
+
+        <button mat-button
+            style="bottom: 5px;"
+            class="bg-white text-indigo-500 rounded-lg px-2 py-1.5 ml-2 hover:bg-indigo-600 hover:text-white"
+            (click)="onLogin()">
+            <mat-icon class="text-indigo-500">person_add</mat-icon>
+            Registrarse
+        </button>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon [matBadge]="itemsQuantity" [matBadgeHidden]="!itemsQuantity"
+                matBadgeColor="warn">shopping_cart</mat-icon>
+        </button>
+    </div>
+
+    <!-- Código del carrito -->
     <mat-menu #menu="matMenu">
         <div class="p-3 divide-y divide-solid">
             <div class="pb-3 flex justify-between">
@@ -25,21 +44,16 @@
             <div class="flex justify-between py-3 font-light">
                 Total:
                 <span class="font-bold">{{ getTotal(cart.items) | currency }}</span>
-            </div> 
+            </div>
             <div class="pt-3 flex justify-between">
-                <button
-                    (click)="onClearCart()" 
-                    class="bg-rose-600 text-white rounded-full w-9 h-9">
+                <button (click)="onClearCart()" class="bg-rose-600 text-white rounded-full w-9 h-9">
                     <mat-icon>remove_shopping_cart</mat-icon>
                 </button>
-                <button
-                    routerLink="cart" 
-                    class="bg-green-600 text-white rounded-full w-9 h-9">
+                <button routerLink="cart" class="bg-green-600 text-white rounded-full w-9 h-9">
                     <mat-icon>shopping_cart</mat-icon>
                 </button>
-            </div>       
+            </div>
         </div>
     </mat-menu>
-        
-    
+
 </mat-toolbar>
