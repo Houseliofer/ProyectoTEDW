@@ -42,8 +42,8 @@ export class HeaderComponent {
     this.router.navigate(['/login']);
   }
 
-  onSignup() {
-    this.router.navigate(['/signup']);
+  onRegister() {
+    this.router.navigate(['/register']);
   }
 
   searchQuery: string = '';
