@@ -35,6 +35,7 @@ import { LoginComponent } from './pages/login/login/login.component';
 import { RegisterComponent } from './pages/login/register/register.component';
 import { AuthService } from './services/auth.service';
 
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,7 +66,9 @@ import { AuthService } from './services/auth.service';
     MatSnackBarModule,
     MatFormFieldModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
+
   ],
   providers:  [
     CartService,
