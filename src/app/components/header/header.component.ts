@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit,ChangeDetectorRef } from '@angular/core';
 import { Cart, CartItem } from 'src/app/models/cart.model';
 import { CartService } from 'src/app/services/cart.service';
 import { Router } from '@angular/router';
-import { SearchService } from 'src/app/services/search-service.service';
+import { StoreService } from 'src/app/services/store.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -10,6 +11,7 @@ import { SearchService } from 'src/app/services/search-service.service';
 
 })
 export class HeaderComponent implements OnInit {
+  isLoggedIn: boolean = false; 
 [x: string]: any;
   searchKeyword: string = '';
 
@@ -30,12 +32,16 @@ export class HeaderComponent implements OnInit {
   }
 
   constructor(private cartService: CartService,
-    private router: Router, private searchService: SearchService) { }
+    private router: Router, private searchService: StoreService,
+    private auth: AuthService,
+    private cdr: ChangeDetectorRef ) { }
 
     ngOnInit(): void {
       this.searchService.searchKeyword$.subscribe(keyword => {
         this.searchKeyword = keyword;
       });
+      this.isLoggedIn = this.auth.isAuth();
+  
     }
   
     search() {
@@ -52,8 +58,12 @@ export class HeaderComponent implements OnInit {
   onLogin() {
     this.router.navigate(['/login']);
   }
-
   onRegister() {
-    this.router.navigate(['/register']);
+    this.router.navigate(['/private']);
+  }
+  onLogout() {
+    this.auth.logout();
+    this.isLoggedIn = false;
+    this.router.navigate(['/login']);
   }
 }

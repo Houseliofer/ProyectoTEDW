@@ -2,7 +2,7 @@
 <div class="flex justify-center items-center h-screen bg-gray-100">
     <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
       <h2 class="text-2xl font-bold mb-6">Login</h2>
-      <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" #loginForm="ngForm">
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
             Username
@@ -12,11 +12,9 @@
             id="username"
             type="text"
             placeholder="Enter your username"
-            [(ngModel)]="model['username']" name="username" required
+            formControlName="email"
+            
           />
-          <div *ngIf="loginForm?.controls && loginForm.controls['username']?.invalid && (loginForm.controls['username'].dirty || loginForm.controls['username'].touched)">
-            <p class="text-red-500 text-xs italic">Username is required</p>
-          </div>
         </div>
         <div class="mb-6">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
@@ -27,16 +25,13 @@
             id="password"
             type="password"
             placeholder="Enter your password"
-            [(ngModel)]="model['password']" name="password" required
+            formControlName="password"
+            
           />
-          <div *ngIf="loginForm?.controls && loginForm.controls['password']?.invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)">
-            <p class="text-red-500 text-xs italic">Password is required</p>
-          </div>
         </div>
         <div class="flex items-center justify-between">
           <button
             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="submit"
           >
             Sign In
           </button>

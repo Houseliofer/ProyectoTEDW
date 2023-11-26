@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product.model';
 import { StoreService } from 'src/app/services/store.service';
 import { CartService } from 'src/app/services/cart.service';
-import { SearchService } from 'src/app/services/search-service.service';
 
 const ROWS_HEIGHT: { [id: string]: number } = { 1: 400, 3: 335, 4: 350 };
 
@@ -18,13 +17,13 @@ export class HomeComponent implements OnInit {
   products: Product[] = [];
   searchKeyword: string = '';
 
-  constructor(private storeService: StoreService, private cartService: CartService, private searchService: SearchService) { }
+  constructor(private storeService: StoreService, private cartService: CartService) { }
 
   ngOnInit(): void {
     this.loadProducts();
 
     // Suscribirse a cambios en el término de búsqueda
-    this.searchService.searchKeyword$.subscribe(keyword => {
+    this.storeService.searchKeyword$.subscribe(keyword => {
       this.searchKeyword = keyword;
       this.loadProducts();
     });
@@ -33,18 +32,17 @@ export class HomeComponent implements OnInit {
   loadProducts() {
     if (this.searchKeyword.trim() !== '') {
       this.search();
-    } else /*if (this.category) {
+    } else {if (this.category) {
       this.storeService.getProductCategory(this.category).subscribe((products) => {
         this.products = products;
       });
-    } else */ {
+    } else {
       this.storeService.getProducts().subscribe((data) => {
         this.products = data;
       });
     }
   }
-
-
+  }
   onColumnsCountChange(colsNum: number): void {
     this.cols = colsNum;
     this.rowHeight = ROWS_HEIGHT[this.cols];

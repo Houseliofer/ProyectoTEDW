@@ -27,15 +27,19 @@ import { ProductBoxComponent } from './pages/home/components/product-box/product
 import { CartComponent } from './pages/cart/cart.component';
 import { CartService } from './services/cart.service';
 import { StoreService } from './services/store.service';
-
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './pages/login/login/login.component';
 import { RegisterComponent } from './pages/login/register/register.component';
 import { AuthService } from './services/auth.service';
+import { CookieService } from 'ngx-cookie-service';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+
+import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
+import { JwtInterceptorService } from './services/jwt-interceptor.service';
+import { PrivateComponent } from './pages/private/private.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +50,8 @@ import { HttpClientModule } from '@angular/common/http';
     ProductBoxComponent,
     CartComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    PrivateComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,13 +72,19 @@ import { HttpClientModule } from '@angular/common/http';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
 
   ],
   providers:  [
     CartService,
     StoreService,
-    AuthService
+    AuthService,
+    JwtHelperService,
+    CookieService,
+    {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},
+    //Token Interceptor
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true}
   ],
   bootstrap: [AppComponent]
 })
