@@ -1,11 +1,11 @@
 <mat-toolbar class="bg-indigo-500 text-white justify-between">
 
-    <a routerLink="home" class="font-bold">Título de la Página</a>
+    <a routerLink="home" class="font-bold">Title</a>
     <!--Barra de busqueda-->
     <!--Pon aqui todo el codigo que necesites para la barra de busqueda-->
     <!--Utiliza ese estilo del input para que la barra de busqueda se vea bien-->
     <!-- header.component.html -->
-<input matInput class="bg-white text-gray-700 rounded-lg px-2" placeholder="Buscar..."
+<input matInput class="bg-white text-gray-700 rounded-lg px-2" placeholder="search..."
 [(ngModel)]="searchKeyword" (input)="search()">
 
     <div>
@@ -13,14 +13,14 @@
             class="bg-white text-indigo-500 rounded-lg px-2 py-1.5 hover:bg-indigo-600 hover:text-white"
             (click)="onLogin()">
             <mat-icon class="text-indigo-500">login</mat-icon>
-            Iniciar Sesión
+            Login
         </button>
 
         <button mat-button style="bottom: 5px;"
             class="bg-white text-indigo-500 rounded-lg px-2 py-1.5 ml-2 hover:bg-indigo-600 hover:text-white"
             (click)="onRegister()">
             <mat-icon class="text-indigo-500">person_add</mat-icon>
-            Registrarse
+            Register
         </button>
         <button mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon [matBadge]="itemsQuantity" [matBadgeHidden]="!itemsQuantity"
