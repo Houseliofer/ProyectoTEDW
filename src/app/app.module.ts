@@ -36,6 +36,8 @@ import { RegisterComponent } from './pages/login/register/register.component';
 import { AuthService } from './services/auth.service';
 
 import { HttpClientModule } from '@angular/common/http';
+import { ConfigComponent } from './pages/usuario/config.component';
+import { ProductDetailComponent } from './pages/product_detail/product-detail.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +48,9 @@ import { HttpClientModule } from '@angular/common/http';
     ProductBoxComponent,
     CartComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ConfigComponent,
+    ProductDetailComponent
   ],
   imports: [
     BrowserModule,
