@@ -5,6 +5,7 @@ import { Product } from 'src/app/models/product.model';
   templateUrl: './product-box.component.html'
 })
 export class ProductBoxComponent{
+  isLoggedIn: boolean = false; 
   products: Product[] = []
 
   @Input() fullWidthMode = false;
