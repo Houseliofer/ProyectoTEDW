@@ -19,19 +19,20 @@ export class RoleGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot): boolean {
     const expectedRole = route.data['expectedRol'];
     const tokenCookie = this.cookieService.get('jwt');
-  
+
     if (tokenCookie !== null) {
       const tokenParts = tokenCookie.split('.');
-  
       if (tokenParts.length !== 3) {
-        console.error('Invalid token format');
         this.router.navigate(['login']);
         return false;
       }
-  
+
       try {
         const decodedToken: token = jwtDecode(tokenCookie);
         const role = decodedToken.role;
+        console.log('Is Authenticated:', this.authService.isAuth());
+        console.log('Role from Token:', role);
+        console.log('Expected Role:', expectedRole);
 
         if (!this.authService.isAuth() || role !== expectedRole) {
           console.error('You do not have permission!');
@@ -40,16 +41,16 @@ export class RoleGuard implements CanActivate {
         }
       } catch (error) {
         console.error('Error decoding token:', error);
-        this.router.navigate(['login']);
+        this.router.navigate(['/login']);
         return false;
       }
     } else {
       console.error('It does not exist token');
-      this.router.navigate(['login']);
+      this.router.navigate(['/login']);
       return false;
     }
-  
+
     return true;
   }
-  
+
 }

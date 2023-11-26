@@ -6,6 +6,8 @@ import { LoginComponent } from './pages/login/login/login.component';
 import { RegisterComponent } from './pages/login/register/register.component';
 import { PrivateComponent } from './pages/private/private.component';
 import { RoleGuard } from './guards/role.guard';
+import { ProductDetailComponent } from './pages/product_detail/product-detail.component';
+
 const routes: Routes = [{
   path: 'home',
   component: HomeComponent
@@ -32,6 +34,10 @@ const routes: Routes = [{
   component: PrivateComponent,
   canActivate: [RoleGuard],
   data: {expectedRol: 'admin'}
+},
+{
+  path:'product-detail/:id',
+  component: ProductDetailComponent, 
 }
 ];
 
