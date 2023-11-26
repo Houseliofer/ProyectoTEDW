@@ -1,5 +1,6 @@
 <mat-toolbar class="bg-indigo-500 text-white justify-between">
 
+
     <a routerLink="home" class="font-bold">Título de la Página</a>
 <input matInput class="bg-white text-gray-700 rounded-lg px-2" placeholder="Buscar..."
 [(ngModel)]="searchKeyword" (input)="search()">
@@ -12,6 +13,7 @@
             (click)="onLogout()">
             <mat-icon class="text-indigo-500">exit_to_app</mat-icon>
             Cerrar sesion
+
         </button>
         
     </div>
@@ -33,9 +35,15 @@
     <!--
         <button mat-button style="bottom: 5px;"
             class="bg-white text-indigo-500 rounded-lg px-2 py-1.5 ml-2 hover:bg-indigo-600 hover:text-white"
+
             >
             <mat-icon class="text-indigo-500">person_pin</mat-icon>
             Perfil
+
+            (click)="onRegister()">
+            <mat-icon class="text-indigo-500">person_add</mat-icon>
+            Register
+
         </button>
     -->
 

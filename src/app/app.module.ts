@@ -37,9 +37,15 @@ import { CookieService } from 'ngx-cookie-service';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
+
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 import { JwtInterceptorService } from './services/jwt-interceptor.service';
 import { PrivateComponent } from './pages/private/private.component';
+
+import { HttpClientModule } from '@angular/common/http';
+import { ConfigComponent } from './pages/usuario/config.component';
+import { ProductDetailComponent } from './pages/product_detail/product-detail.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,6 +58,8 @@ import { PrivateComponent } from './pages/private/private.component';
     LoginComponent,
     RegisterComponent,
     PrivateComponent,
+    ConfigComponent,
+    ProductDetailComponent
   ],
   imports: [
     BrowserModule,
