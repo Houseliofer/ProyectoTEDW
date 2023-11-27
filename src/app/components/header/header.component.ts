@@ -4,11 +4,11 @@ import { CartService } from 'src/app/services/cart.service';
 import { Router } from '@angular/router';
 import { StoreService } from 'src/app/services/store.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { startWith } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-
 })
 export class HeaderComponent implements OnInit {
   isLoggedIn: boolean = false; 
@@ -40,8 +40,11 @@ export class HeaderComponent implements OnInit {
       this.searchService.searchKeyword$.subscribe(keyword => {
         this.searchKeyword = keyword;
       });
-      this.isLoggedIn = this.auth.isAuth();
-  
+      this.auth.isLoggedIn$.pipe(startWith(this.auth.isAuth())).subscribe(isLoggedIn => {
+        this.isLoggedIn = isLoggedIn;
+        this.cdr.detectChanges()
+      });
+      
     }
   
     search() {
@@ -64,6 +67,7 @@ export class HeaderComponent implements OnInit {
   onLogout() {
     this.auth.logout();
     this.isLoggedIn = false;
+    this.cdr.detectChanges()
     this.router.navigate(['/login']);
   }
 }

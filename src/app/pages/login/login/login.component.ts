@@ -24,23 +24,36 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit():any {
+
     if (this.form.valid) {
       const login = {
         email: this.form.value.email,
         password: this.form.value.password,
       };
-      this.auth.login(login).subscribe(
-        () => {
-          this.router.navigate(['/home']);
-        },
-        (error) => {
-          console.error('Login failed', error);
-        }
-      )
+      try {
+        this.auth.login(login).subscribe(
+          () => {
+            this.router.navigate(['/home']);
+          },
+          (error) => {
+            this._snackBar.open('incorrect username or password', 'Close', {
+              duration: 3000,
+            });
+          }
+        )
+      } catch (error) {
+        this._snackBar.open('internal error', 'Close', {
+          duration: 3000,
+        });
+      }      
     } else {
       this._snackBar.open('Please fill all the required fields', 'Close', {
         duration: 3000,
       });
     }
+  }
+
+  Onforgot(){
+    this.router.navigate(['/forgot-password'])
   }
 }

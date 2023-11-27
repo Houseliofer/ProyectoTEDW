@@ -35,16 +35,16 @@ import { RegisterComponent } from './pages/login/register/register.component';
 import { AuthService } from './services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
 
-import { HTTP_INTERCEPTORS} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 import { JwtInterceptorService } from './services/jwt-interceptor.service';
 import { PrivateComponent } from './pages/private/private.component';
-
-import { HttpClientModule } from '@angular/common/http';
 import { ConfigComponent } from './pages/usuario/config.component';
 import { ProductDetailComponent } from './pages/product_detail/product-detail.component';
+import { ResetPasswordComponent } from './pages/password/reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './pages/password/forgot-password/forgot-password.component';
 import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
@@ -61,7 +61,9 @@ import { FooterComponent } from './components/footer/footer.component';
     PrivateComponent,
     ConfigComponent,
     ProductDetailComponent,
-    FooterComponent
+    ResetPasswordComponent,
+    ForgotPasswordComponent,    
+    FooterComponent  
   ],
   imports: [
     BrowserModule,
@@ -83,8 +85,8 @@ import { FooterComponent } from './components/footer/footer.component';
     MatInputModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
+    
   ],
   providers:  [
     CartService,
