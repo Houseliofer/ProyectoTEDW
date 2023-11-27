@@ -59,7 +59,7 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/login']);
   }
   onRegister() {
-    this.router.navigate(['/private']);
+    this.router.navigate(['/register']);
   }
   onLogout() {
     this.auth.logout();

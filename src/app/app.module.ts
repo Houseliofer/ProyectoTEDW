@@ -35,7 +35,7 @@ import { RegisterComponent } from './pages/login/register/register.component';
 import { AuthService } from './services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
 
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS} from '@angular/common/http';
 
 
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
@@ -45,6 +45,7 @@ import { PrivateComponent } from './pages/private/private.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ConfigComponent } from './pages/usuario/config.component';
 import { ProductDetailComponent } from './pages/product_detail/product-detail.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { ProductDetailComponent } from './pages/product_detail/product-detail.co
     RegisterComponent,
     PrivateComponent,
     ConfigComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

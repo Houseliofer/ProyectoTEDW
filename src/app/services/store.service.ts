@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
 import { Product } from '../models/product.model';
 import { User } from '../models/user.model';
+import { Category } from '../models/category.model';
 
 const API_BASE = 'http://localhost:3000/tienda/v1/'
 @Injectable({
@@ -31,6 +32,14 @@ export class StoreService {
   }
   updateSearchKeyword(keyword: string) {
     this.searchKeywordSubject.next(keyword);
+  }
+
+  getProductById(id: string): Observable<Product> {
+    const url = `${API_BASE}productsId/${id}`;
+    return this.http.get<Product>(`${API_BASE}productsId/${id}`);
+  }
+  getCategoryById(categoryId:string): Observable<Category>{
+    return this.http.get<Category>(`${API_BASE}categories/${categoryId}`);
   }
 
   //------------------------------USUARIO--------------------------------------------------

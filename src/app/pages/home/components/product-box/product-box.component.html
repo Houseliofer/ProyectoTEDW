@@ -1,4 +1,4 @@
-<mat-card [ngClass]="{'text-center': !fullWidthMode}">
+<mat-card [ngClass]="{'text-center': !fullWidthMode}" (click)="onCardClick()">
     <div [ngClass]="{flex:fullWidthMode}">
         <img class="mb-1 mx-auto h-[200px]" 
                 [ngClass]="{'h-200px': !fullWidthMode, 'h-[360px]' : fullWidthMode}"
