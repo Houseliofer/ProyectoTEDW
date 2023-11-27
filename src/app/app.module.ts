@@ -35,7 +35,7 @@ import { RegisterComponent } from './pages/login/register/register.component';
 import { AuthService } from './services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
 
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
@@ -45,7 +45,8 @@ import { ConfigComponent } from './pages/usuario/config.component';
 import { ProductDetailComponent } from './pages/product_detail/product-detail.component';
 import { ResetPasswordComponent } from './pages/password/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './pages/password/forgot-password/forgot-password.component';
-import { ResolverResolver } from './services/resolver.service';
+import { FooterComponent } from './components/footer/footer.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,8 +62,8 @@ import { ResolverResolver } from './services/resolver.service';
     ConfigComponent,
     ProductDetailComponent,
     ResetPasswordComponent,
-    ForgotPasswordComponent,
-    
+    ForgotPasswordComponent,    
+    FooterComponent  
   ],
   imports: [
     BrowserModule,
