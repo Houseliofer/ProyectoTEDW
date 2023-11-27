@@ -30,9 +30,9 @@ export class RoleGuard implements CanActivate {
       try {
         const decodedToken: token = jwtDecode(tokenCookie);
         const role = decodedToken.role;
-        console.log('Is Authenticated:', this.authService.isAuth());
+        /*console.log('Is Authenticated:', this.authService.isAuth());
         console.log('Role from Token:', role);
-        console.log('Expected Role:', expectedRole);
+        console.log('Expected Role:', expectedRole);*/
 
         if (!this.authService.isAuth() || role !== expectedRole) {
           console.error('You do not have permission!');

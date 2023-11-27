@@ -37,11 +37,15 @@ import { CookieService } from 'ngx-cookie-service';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
+
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 import { JwtInterceptorService } from './services/jwt-interceptor.service';
 import { PrivateComponent } from './pages/private/private.component';
 import { ConfigComponent } from './pages/usuario/config.component';
 import { ProductDetailComponent } from './pages/product_detail/product-detail.component';
+import { ResetPasswordComponent } from './pages/password/reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './pages/password/forgot-password/forgot-password.component';
+import { ResolverResolver } from './services/resolver.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +59,10 @@ import { ProductDetailComponent } from './pages/product_detail/product-detail.co
     RegisterComponent,
     PrivateComponent,
     ConfigComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    ResetPasswordComponent,
+    ForgotPasswordComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -77,8 +84,8 @@ import { ProductDetailComponent } from './pages/product_detail/product-detail.co
     MatInputModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
+    
   ],
   providers:  [
     CartService,
