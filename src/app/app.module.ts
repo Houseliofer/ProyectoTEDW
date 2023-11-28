@@ -47,6 +47,7 @@ import { ResetPasswordComponent } from './pages/password/reset-password/reset-pa
 import { ForgotPasswordComponent } from './pages/password/forgot-password/forgot-password.component';
 import { FooterComponent } from './components/footer/footer.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

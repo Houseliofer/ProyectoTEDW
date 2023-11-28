@@ -32,8 +32,12 @@ export class LoginComponent implements OnInit {
       };
       try {
         this.auth.login(login).subscribe(
-          () => {
+          (userData) => {
+            
             this.router.navigate(['/home']);
+            this._snackBar.open('Welcome', 'Close', {
+              duration: 3000,
+            });
           },
           (error) => {
             this._snackBar.open('incorrect username or password', 'Close', {

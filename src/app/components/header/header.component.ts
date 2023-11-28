@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { StoreService } from 'src/app/services/store.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { startWith } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-header',
@@ -34,7 +35,8 @@ export class HeaderComponent implements OnInit {
   constructor(private cartService: CartService,
     private router: Router, private searchService: StoreService,
     private auth: AuthService,
-    private cdr: ChangeDetectorRef ) { }
+    private cdr: ChangeDetectorRef,
+    private _snackbar: MatSnackBar ) { }
 
     ngOnInit(): void {
       this.searchService.searchKeyword$.subscribe(keyword => {
@@ -69,5 +71,12 @@ export class HeaderComponent implements OnInit {
     this.isLoggedIn = false;
     this.cdr.detectChanges()
     this.router.navigate(['/login']);
+    this._snackbar.open('You have logged out', 'Close', {
+      duration: 3000,
+    });
+  }
+
+  onProfile() {
+    this.router.navigate(['/config']);
   }
 }

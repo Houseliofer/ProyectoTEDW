@@ -10,7 +10,7 @@ import { ProductDetailComponent } from './pages/product_detail/product-detail.co
 import { ForgotPasswordComponent } from './pages/password/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './pages/password/reset-password/reset-password.component';
 import { TokenGuard } from './guards/token.guard';
-import { ResolverResolver } from './services/resolver.service';
+import { ConfigComponent } from './pages/usuario/config.component';
 
 const routes: Routes = [{
   path: 'home',
@@ -53,6 +53,10 @@ const routes: Routes = [{
   data: { preload: true
   },
   canActivate: [TokenGuard],
+},
+{
+  path:'config',
+  component: ConfigComponent
 }
 ];
 

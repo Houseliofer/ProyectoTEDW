@@ -5,3 +5,8 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body.config-view app-header,
+body.config-view app-footer {
+    display: none;
+}
+
