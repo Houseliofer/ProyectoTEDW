@@ -10,7 +10,6 @@ import { ProductDetailComponent } from './pages/product_detail/product-detail.co
 import { ForgotPasswordComponent } from './pages/password/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './pages/password/reset-password/reset-password.component';
 import { TokenGuard } from './guards/token.guard';
-import { ResolverResolver } from './services/resolver.service';
 
 const routes: Routes = [{
   path: 'home',
