@@ -10,6 +10,9 @@ import { ProductDetailComponent } from './pages/product_detail/product-detail.co
 import { ForgotPasswordComponent } from './pages/password/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './pages/password/reset-password/reset-password.component';
 import { TokenGuard } from './guards/token.guard';
+import { ConfigComponent } from './pages/usuario/config.component';
+import { GetCategoriesComponent } from './pages/private/categories/get-categories/get-categories.component';
+
 
 const routes: Routes = [{
   path: 'home',
@@ -32,12 +35,14 @@ const routes: Routes = [{
   path:'register',
   component: RegisterComponent
 },
-/*{
+{
   path:'private',
   component: PrivateComponent,
   canActivate: [RoleGuard],
-  data: {expectedRol: 'admin'}
-},*/
+  data: {expectedRol: 'admin'},
+  pathMatch: 'full' 
+
+},
 {
   path:'product-detail/:id',
   component: ProductDetailComponent, 
@@ -52,7 +57,15 @@ const routes: Routes = [{
   data: { preload: true
   },
   canActivate: [TokenGuard],
-}
+},
+{
+  path:'config',
+  component: ConfigComponent
+},
+/*{
+  path: '/categories',
+  component: GetCategoriesComponent
+}*/
 ];
 
 @NgModule({

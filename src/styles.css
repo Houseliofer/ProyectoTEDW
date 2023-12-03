@@ -5,3 +5,10 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body.config-view app-header,
+body.config-view app-footer,
+body.admin app-header,
+body.admin app-footer{
+    display: none;
+}
+

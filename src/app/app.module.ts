@@ -46,6 +46,9 @@ import { ProductDetailComponent } from './pages/product_detail/product-detail.co
 import { ResetPasswordComponent } from './pages/password/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './pages/password/forgot-password/forgot-password.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { GetCategoriesComponent } from './pages/private/categories/get-categories/get-categories.component';
+import { NewCategoryComponent } from './pages/private/categories/new-category/new-category.component';
+
 
 @NgModule({
   declarations: [
@@ -63,7 +66,9 @@ import { FooterComponent } from './components/footer/footer.component';
     ProductDetailComponent,
     ResetPasswordComponent,
     ForgotPasswordComponent,    
-    FooterComponent  
+    FooterComponent, 
+    GetCategoriesComponent, 
+    NewCategoryComponent  
   ],
   imports: [
     BrowserModule,

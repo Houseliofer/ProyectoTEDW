@@ -33,7 +33,7 @@ isLoggedIn$: Observable<boolean> = this.isLoggedInSubject.asObservable();
   }
   isAuth(): boolean {
     const token = this.cookieService.get('jwt');
-    console.log(token)
+    //console.log(token)
     if (this.jwtHelper.isTokenExpired(token) || !token) {
       return false;
     }

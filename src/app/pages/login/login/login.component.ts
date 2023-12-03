@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
+import { jwtDecode } from 'jwt-decode';
+import { token } from 'src/app/models/token.model';
+
 
 @Component({
   selector: 'app-login',
@@ -23,8 +26,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onSubmit():any {
-
+  onSubmit(): any {
     if (this.form.valid) {
       const login = {
         email: this.form.value.email,
@@ -32,26 +34,48 @@ export class LoginComponent implements OnInit {
       };
       try {
         this.auth.login(login).subscribe(
-          () => {
-            this.router.navigate(['/home']);
+          (userData) => {
+            const tokenCookie = this.cookie.get('jwt');
+            console.log(tokenCookie)
+            try {
+              const decodedToken: token = jwtDecode(tokenCookie);
+              const role = decodedToken.role;
+              console.log(role);
+              if (role == 'admin') {
+                this._snackBar.open('Welcome', 'Close', {
+                  duration: 3000,
+                });
+                this.router.navigate(['/private']);
+              } else {
+                this._snackBar.open('Welcome', 'Close', {
+                  duration: 3000,
+                });
+                this.router.navigate(['/home']);
+              }
+            } catch (error) {
+              console.error('Error decoding token:', error);
+              // Trata el error de decodificación del token aquí
+            }
           },
           (error) => {
             this._snackBar.open('incorrect username or password', 'Close', {
               duration: 3000,
             });
           }
-        )
+        );
       } catch (error) {
         this._snackBar.open('internal error', 'Close', {
           duration: 3000,
         });
-      }      
+      }
     } else {
       this._snackBar.open('Please fill all the required fields', 'Close', {
         duration: 3000,
       });
     }
   }
+  
+  
 
   Onforgot(){
     this.router.navigate(['/forgot-password'])

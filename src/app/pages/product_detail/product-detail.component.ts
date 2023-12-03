@@ -39,7 +39,7 @@ export class ProductDetailComponent {
     }
   }
 
-  isRopaCategory() {
-    return this.category.category.categoria == 'Ropa';
+  isRopaCategory():boolean {
+    return this.category && this.category.category && this.category.category.categoria == 'Ropa';
   }
 }
