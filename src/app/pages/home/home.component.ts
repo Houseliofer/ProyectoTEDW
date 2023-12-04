@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit {
   }
   search() {
     // Realizar la búsqueda
-    this.storeService.searchRecipes(this.searchKeyword).subscribe((data) => {
+    this.storeService.searchproduct(this.searchKeyword).subscribe((data) => {
       this.products = data;
     });
   }

@@ -27,7 +27,7 @@ export class StoreService {
     return this.http.get<Product[]>(`${API_BASE}products`);
   }
 
-  searchRecipes(word: String) {
+  searchproduct(word: String) {
     return this.http.get<Product[]>(`${API_BASE}search/${word}`)
   }
 
@@ -63,4 +63,35 @@ export class StoreService {
   profile(id: string): Observable<User> {
     return this.http.get<User>(`${API_BASE}users/profile/${id}`,{ withCredentials: true });
   }
+  //------------------SUPPLIERS-----------------------------------
+  getSuppliers():Observable<any>{
+    return this.http.get<any>(`${API_BASE}suppliers`)
+  }
+  deleteSupplier(id: string): Observable<any> {
+    return this.http.delete(`${API_BASE}deletesupplier/${id}`);
+  }
+  newSupplier(data: any): Observable<any> {
+    return this.http.post<any>(`${API_BASE}Newsupplier`, data);
+  }
+  updateSupplier(id: string, data:any){
+    return this.http.patch(`${API_BASE}updatesupplier/${id}`,data)
+  }
+  //---------------------BRANDS--------------------------------
+  getBrands():Observable<any>{
+    return this.http.get<any>(`${API_BASE}brands`)
+  }
+  deleteBrand(id: string): Observable<any> {
+    return this.http.delete(`${API_BASE}deletebrand/${id}`);
+  }
+  newBrand(data: any): Observable<any> {
+    return this.http.post<any>(`${API_BASE}Newbrand`, data);
+  }
+  updateBrand(id: string, data:any){
+    return this.http.patch(`${API_BASE}updatebrand/${id}`,data)
+  }
+
+///-------------PRODUCT----------------------------
+newProduct(data: any): Observable<any> {
+  return this.http.post<any>(`${API_BASE}Newproduct`, data,{ withCredentials: true });
+}
 }

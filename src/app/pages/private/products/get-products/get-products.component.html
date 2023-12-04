@@ -1,0 +1,66 @@
+<div class="w-full h-full mx-auto mt-8">
+    <div *ngIf="showTable">
+      <button type="button" 
+        class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 "
+        (click)="toggleAddProductForm()">
+        Add Product
+      </button>
+      <table mat-table [dataSource]="Products" class="table-auto">
+      <!-- Columna de nombre de producto -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef class="px-4"> Product name </th>
+        <td mat-cell *matCellDef="let product" class="px-4"> {{ product.name }} </td>
+      </ng-container>
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef class="px-4"> Price</th>
+        <td mat-cell *matCellDef="let product" class="px-4">${{ product.price }} </td>
+      </ng-container>
+      <ng-container matColumnDef="stock">
+        <th mat-header-cell *matHeaderCellDef class="px-4"> Stock </th>
+        <td mat-cell *matCellDef="let product" class="px-4"> {{ product.quantity}} </td>
+      </ng-container>
+      <ng-container matColumnDef="supplier">
+        <th mat-header-cell *matHeaderCellDef class="px-4"> Supplier </th>
+        <td mat-cell *matCellDef="let product" class="px-4"> {{ product.supplier.supplier }} </td>
+      </ng-container>
+      <ng-container matColumnDef="brand">
+        <th mat-header-cell *matHeaderCellDef class="px-4"> Brand </th>
+        <td mat-cell *matCellDef="let product" class="px-4"> {{ product.brand.brand }} </td>
+      </ng-container>
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef class="px-4"> Category </th>
+        <td mat-cell *matCellDef="let product" class="px-4"> {{ product.category.categoria }} </td>
+      </ng-container>
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef class="px-4"> Created At </th>
+        <td mat-cell *matCellDef="let product" class="px-4"> {{ product.createdAt }} </td>
+      </ng-container>  
+      <!-- Columna de botones de acción -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="px-4"> Actions </th>
+        <td mat-cell *matCellDef="let supplier" class="px-4">
+          <!-- Botón de editar -->
+          <button mat-icon-button (click)="editProduct(Products)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <!-- Botón de borrar -->
+          <button mat-icon-button (click)="deleteProduct(Products._id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+  
+      <!-- Definir las columnas en la tabla -->
+      <tr mat-header-row *matHeaderRowDef="['name','price','stock','supplier','brand','category','createdAt', 'actions']"></tr>
+      <tr mat-row *matRowDef="let product; columns: ['name', 'price', 'stock', 'supplier', 'brand', 'category', 'createdAt', 'actions']"></tr>
+    </table>
+  </div>
+  </div>
+
+
+ <div *ngIf="showAddProductForm" class="w-full h-full mx-auto">
+    <app-new-product [ProductToEdit]="editingProduct" (formSubmit)="onFormSubmit()" (goBack)="goBackToList()"></app-new-product>
+  </div>
+  
+  
+  
