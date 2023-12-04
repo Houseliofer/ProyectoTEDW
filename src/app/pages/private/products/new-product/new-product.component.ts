@@ -1,10 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
 import { StoreService } from 'src/app/services/store.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { Category } from 'src/app/models/category.model';
-import { ImageConfig } from '@angular/common';
 
 @Component({
   selector: 'app-new-product',
@@ -36,11 +35,12 @@ export class NewProductComponent {
       name: ['', Validators.required],
       price: ['', Validators.required],
       quantity: ['', Validators.required],
-      colors: ['', Validators.required],
+      colors: this.fb.array([]),
       material: ['', Validators.required],
       category: ['', Validators.required],
       supplier: ['', Validators.required],
       brand: ['', Validators.required],
+      highlights: [[], Validators.required],
       details: [[], Validators.required],
       description: ['', Validators.required],
       images: this.fb.array([]), // Inicializa el campo de imágenes como una cadena vacía
@@ -62,6 +62,7 @@ export class NewProductComponent {
     }
   }  
 
+
   ngOnInit(): void {
     this.category.getCategory().subscribe((data) => {
       this.categories = data;
@@ -77,18 +78,19 @@ export class NewProductComponent {
   }
 
   onSubmit() {
-  
+  console.log(this.form.value)
     if (this.form.valid) {
             const productData: any = {
               name: this.form.value.name,
               price: this.form.value.price,
               quantity: this.form.value.quantity,
-              colors: this.form.value.colors,
+              colors: (this.form.get('colors') as FormArray).value,
               material: this.form.value.material,
               category: this.form.value.category,
               supplier: this.form.value.supplier,
               brand: this.form.value.brand,
-              details: this.form.value.details,
+              highlights:(this.form.value.highlights).split('\n').map((highlights: string) => highlights.trim()),
+              details: (this.form.value.details).split('\n').map((details: string) => details.trim()),
               description: this.form.value.description,
               images: this.form.value.images,
             };
@@ -96,7 +98,7 @@ export class NewProductComponent {
             this.store.newProduct(productData).subscribe(
               (response) => {
                 this.formSubmit.emit();
-                this._snackBar.open('Product successfully updated', 'Close', {
+                this._snackBar.open('Product successfully added', 'Close', {
                   duration: 3000,
                 });
               },
@@ -138,8 +140,26 @@ export class NewProductComponent {
       // Obtiene el tipo de archivo y construye la cadena base64 con el prefijo correcto
       const fileType = file.type;
       reader.readAsDataURL(new Blob([file], { type: fileType }));
-      // También puedes intentar con: reader.readAsDataURL(file);
     });
+  }
+  get colorInputs() {
+    return (this.form.get('colors') as FormArray).controls;
+  }
+
+  addToColorForm() {
+    const colorControl = this.fb.control('', Validators.required);
+    (this.form.get('colors') as FormArray).push(colorControl);
+  }
+  onColorChange(event: any, index: number) {
+    const color = event.target.value;
+    const colorArray = this.form.get('colors') as FormArray;
+
+    // Actualizar el valor en el FormArray
+    colorArray.at(index).setValue(color);
+  }
+  removeColor(index: number) {
+    const colorArray = this.form.get('colors') as FormArray;
+    colorArray.removeAt(index);
   }
   
 }
