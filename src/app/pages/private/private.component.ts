@@ -1,4 +1,4 @@
-import { Component, Renderer2,ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, Renderer2, ChangeDetectorRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -17,20 +17,28 @@ import { token } from 'src/app/models/token.model';
   styles: [
   ]
 })
-export class PrivateComponent implements OnInit{
-  isLoggedIn: boolean = false; 
+export class PrivateComponent implements OnInit {
+  isLoggedIn: boolean = false;
   showCategories: boolean = false;
-  user : any = {}
-  
+  user: any = {}
+  selectedLink: string = '';
+
+  contentStatus: { [key: string]: boolean } = {
+    category: false,
+    supplier: false,
+    brand:false,
+    product:false
+  };
+
   constructor(
     private router: Router,
     private renderer: Renderer2,
-    private auth:AuthService,
+    private auth: AuthService,
     private _snackbar: MatSnackBar,
     private cdr: ChangeDetectorRef,
-    private store:StoreService,
-    private cookie:CookieService
-    ) { }
+    private store: StoreService,
+    private cookie: CookieService
+  ) { }
 
   ngOnInit(): void {
     if (window.location.pathname === '/private') {
@@ -39,22 +47,21 @@ export class PrivateComponent implements OnInit{
       this.renderer.removeClass(document.body, 'admin');
     }
     this.onProfile()
-    
-    
-  }
-  // Implementa aquí tus funciones para guardar los cambios
-  saveChanges() {
-    console.log('Cambios guardados');
-  }
 
-  // Implementa aquí tus funciones para cancelar los cambios
-  cancelChanges() {
-    console.log('Cambios cancelados');
+
   }
-  toggleCategories() {
-    this.showCategories = !this.showCategories;
+  toggleContent(contentType: string) {
+    // Oculta todos los contenidos
+    Object.keys(this.contentStatus).forEach(key => {
+      this.contentStatus[key] = false;
+    });
+
+    // Muestra el contenido específico
+    this.contentStatus[contentType] = true;
+    // Actualiza el enlace seleccionado
+  this.selectedLink = contentType;
   }
-  onLogout(){
+  onLogout() {
     this.auth.logout()
     this.isLoggedIn = false;
     this.cdr.detectChanges()
@@ -66,14 +73,14 @@ export class PrivateComponent implements OnInit{
   onProfile() {
     const tokenCookie = this.cookie.get('jwt');
     try {
-        const decodedToken: token = jwtDecode(tokenCookie);
-        const id = decodedToken._id;
-        this.store.profile(id).subscribe((data) => {
-            this.user = data;
-        });
+      const decodedToken: token = jwtDecode(tokenCookie);
+      const id = decodedToken._id;
+      this.store.profile(id).subscribe((data) => {
+        this.user = data;
+      });
     } catch (error) {
-        console.error('Error decoding token:', error);
+      console.error('Error decoding token:', error);
     }
-}
+  }
 
 }

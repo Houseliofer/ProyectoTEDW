@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, PatternValidator, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from 'src/app/services/category.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Category } from 'src/app/models/category.model';
@@ -15,6 +15,8 @@ import { Category } from 'src/app/models/category.model';
 export class NewCategoryComponent implements OnInit{
   @Output() formSubmit: EventEmitter<void> = new EventEmitter<void>();
   @Input() categoryToEdit: Category | null = null;
+  @Output() goBack: EventEmitter<void> = new EventEmitter<void>();
+
 
 
   form: FormGroup;
@@ -36,6 +38,9 @@ export class NewCategoryComponent implements OnInit{
     }
   }
   
+  goBackToList() {
+    this.goBack.emit();
+  }
 
   onSubmit() {
  if (this.form.valid) {
