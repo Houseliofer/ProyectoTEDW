@@ -42,7 +42,6 @@ export class StoreService {
   }
 
   getProductById(id: string): Observable<Product> {
-    const url = `${API_BASE}productsId/${id}`;
     return this.http.get<Product>(`${API_BASE}productsId/${id}`);
   }
   getCategoryById(categoryId:string): Observable<Category>{
@@ -60,5 +59,8 @@ export class StoreService {
   resetPassword(token: string, newPassword: string, veriPass: string): Observable<any> {
     const body = { password: newPassword, verifyPassword: veriPass }
     return this.http.post(`${API_BASE}reset-password/${token}`, body);
+  }
+  profile(id: string): Observable<User> {
+    return this.http.get<User>(`${API_BASE}users/profile/${id}`,{ withCredentials: true });
   }
 }

@@ -2,7 +2,9 @@
 const aspectRatio = require('@tailwindcss/aspect-ratio');
 
 module.exports = {
-  content: [ "./src/**/*.{html,ts}"],
+  content: [ 
+    "./src/**/*.{html,ts}",  
+    "./node_modules/flowbite/**/*.js"],
   theme: {
     extend: {
       gridTemplateRows: {

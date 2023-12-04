@@ -24,6 +24,7 @@ export class ConfigComponent {
   ngOnInit(): void {
     if (window.location.pathname === '/config') {
       this.renderer.addClass(document.body, 'config-view');
+      console.log(this.renderer.addClass(document.body, 'config-view'))
     } else {
       this.renderer.removeClass(document.body, 'config-view');
     }
