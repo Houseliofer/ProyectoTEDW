@@ -1,0 +1,48 @@
+<div class="container mx-auto p-8">
+    <h2 class="text-3xl font-semibold mb-6">Checkout</h2>
+  
+    <!-- Información de Productos -->
+    <div *ngFor="let item of cartItems" class="flex items-center mb-4">
+      <img [src]="item.product" alt="{{ item.name }}" class="w-16 h-16 object-cover mr-4">
+      <div>
+        <p class="text-lg font-semibold">{{ item.name }}</p>
+        <p>Quantity: {{ item.quantity }}</p>
+        <p>Price: {{ item.price | currency }}</p>
+        <p>Total: {{ item.quantity * item.price | currency }}</p>
+      </div>
+    </div>
+  
+   <!-- Información de Pago -->
+  <h3 class="text-xl font-semibold mt-8 mb-4">Payment Information</h3>
+  <div class="flex space-x-4 mb-4">
+    <div *ngFor="let method of paymentMethods">
+      <label>
+        <input type="radio" [value]="method.id" [(ngModel)]="selectedPaymentMethodId">
+        {{ method.name }}
+      </label>
+    </div>
+  </div>
+  
+    <!-- Información de Entrega -->
+    <h3 class="text-xl font-semibold mb-4">Delivery Information</h3>
+  <div  class="mb-4" *ngIf="userAddresses && userAddresses.length > 0">
+    <label for="address">Choose Delivery Address:</label>
+    <select id="address" [(ngModel)]="selectedAddress" name="address" class="form-select w-full">
+      <option *ngFor="let address of userAddresses" [ngValue]="address">{{ address.street }}, {{ address.city }}, {{ address.state }}, {{ address.zip }}</option>
+    </select>
+  </div>
+    <!-- Agrega campos de dirección de entrega según tus necesidades -->
+  
+    <!-- Resumen del Pedido -->
+    <div class="order-summary bg-gray-100 p-6 rounded">
+      <h3 class="text-xl font-semibold mb-4">Order Summary</h3>
+      <p>Total Items: {{ getTotalItems() }}</p>
+      <p>Total Cost: {{ getTotalCost() | currency }}</p>
+    </div>
+  
+    <!-- Botón de Pago -->
+    <button (click)="onPay()" class="mt-8 px-6 py-3 bg-blue-500 text-white rounded hover:bg-blue-600">
+      Pay Now
+    </button>
+  </div>
+  

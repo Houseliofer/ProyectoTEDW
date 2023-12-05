@@ -19,10 +19,11 @@ export class ConfigComponent {
   selectedLink: string = '';
   userId: string = '';
   userProfile: any;
+  
 
   contentStatus: { [key: string]: boolean } = {
-    profile: true,
-    address :false,
+    profile: false,
+    address :true,
     product:false
   };
 
@@ -48,7 +49,9 @@ export class ConfigComponent {
     this.loadUserProfile();
     initFlowbite();
 
+
   }
+  
   loadUserProfile() {
     this.store.profile(this.userId).subscribe(
       (response: any) => {
@@ -67,12 +70,16 @@ export class ConfigComponent {
     )
   }
   getUserIdFromToken(): string {
-    const tokenCookie = this.cookie.get('jwt');
+    const tokenCookie = localStorage.getItem('jwt');
     try {
+      if(tokenCookie!=null){
       const decodedToken: token = jwtDecode(tokenCookie);
       const userId = decodedToken._id;
       //console.log('Decoded Token:', decodedToken);
       return userId;
+      }
+      else
+        return ''
     } catch (error) {
       this._snackBar.open('Error Decoding token', 'Close', {
         duration: 3000,

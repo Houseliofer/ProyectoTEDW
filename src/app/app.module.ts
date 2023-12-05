@@ -60,7 +60,8 @@ import { ProductsComponent } from './pages/usuario/products/products.component';
 import { ProfileComponent } from './pages/usuario/profile/profile.component';
 import { GetProfileComponent } from './pages/private/profile/get-profile/get-profile.component';
 import { GetOrdersComponent } from './pages/private/orders/get-orders/get-orders.component';
-
+import { PaymentComponent } from './pages/cart/payment/payment.component';
+import { EditComponent } from './pages/usuario/address/edit/edit.component';
 
 @NgModule({
   declarations: [
@@ -86,12 +87,14 @@ import { GetOrdersComponent } from './pages/private/orders/get-orders/get-orders
     GetBrandsComponent, 
     NewBrandComponent, 
     GetProductsComponent,
-    NewProductComponent,
-    AddressComponent,
-    ProductsComponent,
-    ProfileComponent ,
-    GetProfileComponent,
-    GetOrdersComponent
+     NewProductComponent,
+     AddressComponent,
+     ProfileComponent,
+     ProductsComponent,
+     GetOrdersComponent,
+     GetProfileComponent,
+     PaymentComponent,
+     EditComponent
   ],
   imports: [
     BrowserModule,

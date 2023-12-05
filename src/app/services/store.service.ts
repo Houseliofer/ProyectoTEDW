@@ -6,7 +6,7 @@ import { Product } from '../models/product.model';
 import { User } from '../models/user.model';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { Address } from '../models/address.model';
 import { Category } from '../models/category.model';
 
 const API_BASE = 'http://localhost:3000/tienda/v1/'
@@ -26,6 +26,9 @@ export class StoreService {
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(`${API_BASE}products`);
   }
+
+  
+
 
   searchproduct(word: String) {
     return this.http.get<Product[]>(`${API_BASE}search/${word}`)
@@ -52,10 +55,9 @@ export class StoreService {
   newUser(user: User): Observable<User> {
     return this.http.post<User>(`${API_BASE}users/register`, user);
   }
-  updateUsuario(id: string, data:any){
-    return this.http.put(`${API_BASE}users/editprofile/${id}`,data,{ withCredentials: true })
+  updateUsuario(id:String,data:any){
+    return this.http.patch(`${API_BASE}users/editprofile/${id}`,data)
   }
- 
   //-----------------------PASSWORD----------------------
   forgotPassword(data: any) {
     return this.http.post(`${API_BASE}forgot-password`, data)

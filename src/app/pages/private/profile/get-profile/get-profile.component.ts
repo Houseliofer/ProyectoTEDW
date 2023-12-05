@@ -65,7 +65,7 @@ export class GetProfileComponent implements OnInit {
 
   onProfile() {
     try {
-      
+
       this.store.profile(this.idUSer()).subscribe((data) => {
         this.user = data;
         this.form.get('email')?.setValue(this.user.data.email);
@@ -79,9 +79,12 @@ export class GetProfileComponent implements OnInit {
   }
 
   idUSer() {
-    const tokenCookie = this.cookie.get('jwt');
-    const decodedToken: token = jwtDecode(tokenCookie);
-    const id = decodedToken._id;
-    return id;
+    const tokenCookie = localStorage.getItem('jwt');
+    if (tokenCookie !== null) {
+      const decodedToken: token = jwtDecode(tokenCookie);
+      const id = decodedToken._id;
+      return id;
+    }
+    else return '';
   }
 }

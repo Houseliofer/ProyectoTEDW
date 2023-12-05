@@ -26,10 +26,10 @@ export class PrivateComponent implements OnInit {
   contentStatus: { [key: string]: boolean } = {
     category: false,
     supplier: false,
-    brand:false,
-    product:false,
-    profile:false,
-    orders:true
+    brand: false,
+    product: false,
+    profile: false,
+    orders: true
   };
 
   constructor(
@@ -67,7 +67,7 @@ export class PrivateComponent implements OnInit {
       this.contentStatus['orders'] = false;
     }
     // Actualiza el enlace seleccionado
-  this.selectedLink = contentType;
+    this.selectedLink = contentType;
   }
   onLogout() {
     this.auth.logout();
@@ -78,13 +78,15 @@ export class PrivateComponent implements OnInit {
     });
   }
   onProfile() {
-    const tokenCookie = this.cookie.get('jwt');
+    const tokenCookie = localStorage.getItem('jwt');
     try {
-      const decodedToken: token = jwtDecode(tokenCookie);
-      const id = decodedToken._id;
-      this.store.profile(id).subscribe((data) => {
-        this.user = data;
-      });
+      if (tokenCookie !== null) {
+        const decodedToken: token = jwtDecode(tokenCookie);
+        const id = decodedToken._id;
+        this.store.profile(id).subscribe((data) => {
+          this.user = data;
+        });
+      }
     } catch (error) {
       console.error('Error decoding token:', error);
     }
