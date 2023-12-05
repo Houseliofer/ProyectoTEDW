@@ -1,27 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input,Output,SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AddressService } from 'src/app/services/address.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Address } from 'src/app/models/address.model';
-import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styles: [`
-    .modal-overlay {
-      
-    }
   `
   ]
 })
 export class EditComponent {
-  isOpen$ = this.modalService.isOpen$;
+  @Input() editedAddress: Address | null = null;
+  @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
+
 
   form: FormGroup;
   addressId: string = '';
-  editedAddress: Address | null = null;
+  //editedAddress: Address | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -29,7 +27,6 @@ export class EditComponent {
     private router: Router,
     private addressService: AddressService,
     private snackBar: MatSnackBar,
-    private modalService: ModalService
   ) {
     this.form = this.fb.group({
       street: ['', Validators.required],
@@ -40,11 +37,31 @@ export class EditComponent {
   }
 
   ngOnInit(): void {
+    if (this.editedAddress) {
+      this.form.patchValue({
+        street: this.editedAddress.street,
+        city:this.editedAddress.city
+      });
+    }
     const addressIdParam = this.route.snapshot.paramMap.get('id');
     this.addressId = addressIdParam !== null ? addressIdParam : '';
     //this.loadAddress();
 
+    this.route.paramMap.subscribe(params => {
+      const addressIdParam = params.get('id');
+      console.log('ID del detalle:', addressIdParam);
+    });
   }
+  onCloseModal() {
+    this.closeModal.emit();
+  }
+    //const addressIdParam = this.route.snapshot.paramMap.get('id');
+    /*const addressIdParam = this.route.paramMap.get('token');
+    console.log(addressIdParam)
+    this.addressId = addressIdParam !== null ? addressIdParam : '';
+    this.loadAddress();*/
+
+  
 
   // loadAddress() {
   //   this.addressService.getAddressById(this.addressId).subscribe(
@@ -85,9 +102,5 @@ export class EditComponent {
       );
     }
   }
-
-  closeModal() {
-    this.modalService.closeModal();
-  }
-
+  
 }

@@ -1,0 +1,70 @@
+<div class="w-full h-full mx-auto mt-8">
+    
+      <table mat-table [dataSource]="Orders" class="table-auto">
+      <!-- Columna de nombre de producto -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef class="px-4"> ID Order </th>
+        <td mat-cell *matCellDef="let order" class="px-4"> {{ order._id }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="quantity">
+        <th mat-header-cell *matHeaderCellDef class="px-4"> Quantity Products </th>
+        <td mat-cell *matCellDef="let order" class="px-4"> {{ order.cart.totalQty }} </td>
+      </ng-container>
+      <ng-container matColumnDef="total">
+        <th mat-header-cell *matHeaderCellDef class="px-4"> Total Cost</th>
+        <td mat-cell *matCellDef="let order" class="px-4">${{ order.cart.totalCost }} </td>
+      </ng-container>
+      <ng-container matColumnDef="user">
+        <th mat-header-cell *matHeaderCellDef class="px-4"> User </th>
+        <td mat-cell *matCellDef="let order" class="px-4"> {{ order.user.name}} {{order.user.lastname}}</td>
+      </ng-container>
+      <ng-container matColumnDef="Address">
+        <th mat-header-cell *matHeaderCellDef class="px-4"> Address </th>
+        <td mat-cell *matCellDef="let order" class="px-4"> {{ order.address }} </td>
+      </ng-container>
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef class="px-4"> Create At </th>
+        <td mat-cell *matCellDef="let order" class="px-4"> {{ order.createdAt }} </td>
+      </ng-container>
+      <ng-container matColumnDef="delivered">
+        <th mat-header-cell *matHeaderCellDef class="px-4"> Delivered </th>
+        <td mat-cell *matCellDef="let order" class="px-4">
+          {{ order.delivered ? 'Yes' : 'No' }}
+        </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="method">
+        <th mat-header-cell *matHeaderCellDef class="px-4"> Method Payment </th>
+        <td mat-cell *matCellDef="let order" class="px-4">
+          {{ order.paymentId==1 ? 'Credit' : 'Cash' }}
+        </td>
+      </ng-container>
+      <!-- Columna de botones de acción -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="px-4"> Actions </th>
+        <td mat-cell *matCellDef="let order" class="px-4">
+          <!-- Botón de editar -->
+          <button mat-icon-button (click)="editOrders(order)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <!-- Botón de borrar -->
+          <button mat-icon-button>
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+  
+      <!-- Definir las columnas en la tabla -->
+      <tr mat-header-row *matHeaderRowDef="['id','quantity','total','user','Address','createdAt','delivered','method', 'actions']"></tr>
+      <tr mat-row *matRowDef="let order; columns: ['id','quantity', 'total', 'user', 'Address', 'createdAt', 'delivered', 'method', 'actions']"></tr>
+    </table>
+  </div>
+
+<!--
+ <div *ngIf="showAddProductForm" class="w-full h-full mx-auto">
+    <app-new-product [ProductToEdit]="editingProduct" (formSubmit)="onFormSubmit()" (goBack)="goBackToList()"></app-new-product>
+  </div>-->
+  
+  
+  

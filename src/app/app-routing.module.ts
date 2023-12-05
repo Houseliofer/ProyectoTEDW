@@ -13,6 +13,8 @@ import { TokenGuard } from './guards/token.guard';
 import { ConfigComponent } from './pages/usuario/config.component';
 import { GetCategoriesComponent } from './pages/private/categories/get-categories/get-categories.component';
 import { PaymentComponent } from './pages/cart/payment/payment.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 const routes: Routes = [{
@@ -77,7 +79,7 @@ const routes: Routes = [{
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes),HttpClientModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -56,12 +56,12 @@ import { GetProductsComponent } from './pages/private/products/get-products/get-
 import { NewProductComponent } from './pages/private/products/new-product/new-product.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { AddressComponent } from './pages/usuario/address/address.component';
-import { ProfileComponent } from './pages/usuario/profile/profile.component';
 import { ProductsComponent } from './pages/usuario/products/products.component';
+import { ProfileComponent } from './pages/usuario/profile/profile.component';
+import { GetProfileComponent } from './pages/private/profile/get-profile/get-profile.component';
+import { GetOrdersComponent } from './pages/private/orders/get-orders/get-orders.component';
 import { PaymentComponent } from './pages/cart/payment/payment.component';
 import { EditComponent } from './pages/usuario/address/edit/edit.component';
-
-
 
 @NgModule({
   declarations: [
@@ -91,8 +91,10 @@ import { EditComponent } from './pages/usuario/address/edit/edit.component';
      AddressComponent,
      ProfileComponent,
      ProductsComponent,
+     GetOrdersComponent,
+     GetProfileComponent,
      PaymentComponent,
-     EditComponent  
+     EditComponent
   ],
   imports: [
     BrowserModule,

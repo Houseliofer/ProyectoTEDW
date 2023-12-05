@@ -71,12 +71,16 @@ export class ConfigComponent {
     )
   }
   getUserIdFromToken(): string {
-    const tokenCookie = this.cookie.get('jwt');
+    const tokenCookie = localStorage.getItem('jwt');
     try {
+      if(tokenCookie!=null){
       const decodedToken: token = jwtDecode(tokenCookie);
       const userId = decodedToken._id;
       //console.log('Decoded Token:', decodedToken);
       return userId;
+      }
+      else
+        return ''
     } catch (error) {
       this._snackBar.open('Error Decoding token', 'Close', {
         duration: 3000,

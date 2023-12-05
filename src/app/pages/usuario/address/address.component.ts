@@ -7,7 +7,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { StoreService } from 'src/app/services/store.service';
 import { Address } from 'src/app/models/address.model';
 import { AddressService } from 'src/app/services/address.service';
-import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
   selector: 'app-address',
@@ -19,11 +18,19 @@ export class AddressComponent {
   //addresses: {};
   userAddresses: Address[] = [];
   userId: string = '';
+  isEditModalOpen = false;
+  editingAddress: any | null = null;  
 
-  editAddress(address: any) {
-    console.log('Address:', address);
+
+  editAddress(address: Address) {
+    this.editingAddress = address;
+    this.isEditModalOpen = true;
   }
-
+  closeEditModal() {
+    this.isEditModalOpen = false; // Cierra el modal de edit
+    this.editingAddress = null; // Limpia la dirección que se estaba editando
+  }
+  
   form: FormGroup;
   userProfile: any;
 
@@ -33,8 +40,7 @@ export class AddressComponent {
     private _snackBar: MatSnackBar,
     private store: StoreService,
     private addressService: AddressService,
-    private modalService: ModalService
-  ) { 
+  ) {
     this.form = this.fb.group({
       street: ['', Validators.required],
       city: ['', Validators.required],
@@ -45,9 +51,9 @@ export class AddressComponent {
   }
 
   loadAddresses() {
- // Obtén el ID del usuario de tu servicio de autenticación
+    // Obtén el ID del usuario de tu servicio de autenticación
     this.addressService.getUserAddresses(this.userId).subscribe(
-      (addresses:any) => {
+      (addresses: any) => {
         this.userAddresses = addresses.addresses;
       },
       (error) => {
@@ -56,7 +62,7 @@ export class AddressComponent {
     );
   }
   onAddAddress() {
-    const newAddress : Address={
+    const newAddress: Address = {
       street: this.form.value.street,
       city: this.form.value.city,
       state: this.form.value.state,
@@ -88,7 +94,7 @@ export class AddressComponent {
 
   onDeleteAddress(addressId: any) {
     this.addressService.deleteAddress(this.userId, addressId).subscribe(
-      ()=>{
+      () => {
         this.loadAddresses();
         this._snackBar.open('Address deleted', 'Close', {
           duration: 3000,
@@ -96,7 +102,7 @@ export class AddressComponent {
           verticalPosition: 'top',
         });
       },
-      (error)=>{
+      (error) => {
         this._snackBar.open('Error deleting address', 'Close', {
           duration: 3000,
           horizontalPosition: 'center',
@@ -104,7 +110,7 @@ export class AddressComponent {
         });
       }
     );
-    
+
   }
   ngOnInit(): void {
     this.userId = this.getUserIdFromToken();
@@ -132,12 +138,14 @@ export class AddressComponent {
   }*/
 
   getUserIdFromToken(): string {
-    const tokenCookie = this.cookie.get('jwt');
+    const tokenCookie = localStorage.getItem('jwt');
     try {
-      const decodedToken: token = jwtDecode(tokenCookie);
-      const userId = decodedToken._id;
-      //console.log('Decoded Token:', decodedToken);
-      return userId;
+      if (tokenCookie !== null) {
+        const decodedToken: token = jwtDecode(tokenCookie);
+        const userId = decodedToken._id;
+        //console.log('Decoded Token:', decodedToken);
+        return userId;
+      }else return ''
     } catch (error) {
       this._snackBar.open('Error Decoding token', 'Close', {
         duration: 3000,
@@ -151,14 +159,14 @@ export class AddressComponent {
 
 
   onSubmit() {
-    if(this.form.valid){
+    if (this.form.valid) {
       const edit = {
         street: this.form.value.street,
         zip: this.form.value.zip,
         city: this.form.value.city,
         state: this.form.value.state,
       }
-      try{
+      try {
         this.store.editProfile(this.userId, edit).subscribe(
           (response: any) => {
             this._snackBar.open('Address updated', 'Close', {
@@ -177,14 +185,14 @@ export class AddressComponent {
             //console.log('Error updating address:', error);
           }
         )
-      }catch(error){
+      } catch (error) {
         this._snackBar.open('Error loading user address', 'Close', {
           duration: 3000,
           horizontalPosition: 'center',
           verticalPosition: 'top',
         });
       }
-    }else{
+    } else {
       this._snackBar.open('Error loading user address', 'Close', {
         duration: 3000,
         horizontalPosition: 'center',

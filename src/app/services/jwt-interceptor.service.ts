@@ -16,7 +16,8 @@ export class JwtInterceptorService implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
-    const token: string = this.cookieService.get('jwt');
+    const token = localStorage.getItem('jwt');
+    console.log(token)
     let req = request;
     if (token) {
       req = request.clone({

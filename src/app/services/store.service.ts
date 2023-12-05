@@ -57,8 +57,8 @@ export class StoreService {
   newUser(user: User): Observable<User> {
     return this.http.post<User>(`${API_BASE}users/register`, user);
   }
-  getAddresses(userId:any): Observable<any> {
-    return this.http.get<any>(`${API_BASE}addresses/${userId}`);
+  updateUsuario(id:String,data:any){
+    return this.http.patch(`${API_BASE}users/editprofile/${id}`,data)
   }
   //-----------------------PASSWORD----------------------
   forgotPassword(data: any) {
@@ -104,5 +104,16 @@ export class StoreService {
 ///-------------PRODUCT----------------------------
 newProduct(data: any): Observable<any> {
   return this.http.post<any>(`${API_BASE}Newproduct`, data,{ withCredentials: true });
+}
+deleteProduct(id:string): Observable<any>{
+  return this.http.delete(`${API_BASE}deleteProduct/${id}`,{ withCredentials: true })
+}
+updateProduct(id:string, data:any){
+  return this.http.patch(`${API_BASE}updateProduct/${id}`,data,{ withCredentials: true })
+
+}
+
+getOrders():Observable<any>{
+  return this.http.get<any>(`${API_BASE}allorders`)
 }
 }

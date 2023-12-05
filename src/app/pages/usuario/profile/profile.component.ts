@@ -29,7 +29,7 @@ export class ProfileComponent {
     this.form = this.fb.group({
       name: ['', Validators.required],
       lastname: ['', Validators.required],
-      email: [{value:'',disabled:true}, Validators.required],
+      email: [{ value: '', disabled: true }, Validators.required],
       password: ['', Validators.required],
       repeatPassword: ['', Validators.required],
       phone: ['', Validators.required]
@@ -43,12 +43,14 @@ export class ProfileComponent {
   }
 
   getUserIdFromToken(): string {
-    const tokenCookie = this.cookie.get('jwt');
+    const tokenCookie = localStorage.getItem('jwt');
     try {
-      const decodedToken: token = jwtDecode(tokenCookie);
-      const userId = decodedToken._id;
-      //console.log('Decoded Token:', decodedToken);
-      return userId;
+      if (tokenCookie !== null) {
+        const decodedToken: token = jwtDecode(tokenCookie);
+        const userId = decodedToken._id;
+        //console.log('Decoded Token:', decodedToken);
+        return userId;
+      }else return ''
     } catch (error) {
       this._snackBar.open('Error Decoding token', 'Close', {
         duration: 3000,

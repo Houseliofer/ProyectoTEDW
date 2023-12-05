@@ -26,8 +26,10 @@ export class PrivateComponent implements OnInit {
   contentStatus: { [key: string]: boolean } = {
     category: false,
     supplier: false,
-    brand:false,
-    product:false
+    brand: false,
+    product: false,
+    profile: false,
+    orders: true
   };
 
   constructor(
@@ -60,26 +62,31 @@ export class PrivateComponent implements OnInit {
 
     // Muestra el contenido específico
     this.contentStatus[contentType] = true;
+
+    if (contentType !== 'orders') {
+      this.contentStatus['orders'] = false;
+    }
     // Actualiza el enlace seleccionado
-  this.selectedLink = contentType;
+    this.selectedLink = contentType;
   }
   onLogout() {
-    this.auth.logout()
-    this.isLoggedIn = false;
-    this.cdr.detectChanges()
-    this.router.navigate(['/login']);
+    this.auth.logout();
+    this.auth.updateLoggedInState();
+    this.router.navigate(['/home']);
     this._snackbar.open('You have logged out', 'Close', {
       duration: 3000,
     });
   }
   onProfile() {
-    const tokenCookie = this.cookie.get('jwt');
+    const tokenCookie = localStorage.getItem('jwt');
     try {
-      const decodedToken: token = jwtDecode(tokenCookie);
-      const id = decodedToken._id;
-      this.store.profile(id).subscribe((data) => {
-        this.user = data;
-      });
+      if (tokenCookie !== null) {
+        const decodedToken: token = jwtDecode(tokenCookie);
+        const id = decodedToken._id;
+        this.store.profile(id).subscribe((data) => {
+          this.user = data;
+        });
+      }
     } catch (error) {
       console.error('Error decoding token:', error);
     }

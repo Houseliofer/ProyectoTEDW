@@ -37,7 +37,7 @@ export class GetProductsComponent {
   }
 
   deleteProduct(id: string): void {
-    this.store.deleteSupplier(id).subscribe(
+    this.store.deleteProduct(id).subscribe(
       (response) => {
         this.getProducts();
         this._snackbar.open('Action success', 'Close', {
@@ -45,7 +45,8 @@ export class GetProductsComponent {
         });
       },
       (error) => {
-        this._snackbar.open('Error deleting Supplier', 'Close', {
+        console.log(error)
+        this._snackbar.open('Error deleting product', 'Close', {
           duration: 3000,
         });
       }

@@ -18,7 +18,9 @@ export class RoleGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
     const expectedRole = route.data['expectedRol'];
-    const tokenCookie = this.cookieService.get('jwt');
+    console.log('role guard', expectedRole)
+    const tokenCookie = localStorage.getItem('jwt');
+    console.log('token guard',tokenCookie)
 
     if (tokenCookie !== null) {
       const tokenParts = tokenCookie.split('.');

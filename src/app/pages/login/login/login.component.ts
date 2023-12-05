@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder, 
     private auth: AuthService, 
     private router: Router,
-    private cookie:CookieService
+    private cookie:CookieService,
     ) {
     this.form = this.fb.group({
       email: ['', Validators.required],
@@ -39,16 +39,20 @@ export class LoginComponent implements OnInit {
       };
       try {
         this.auth.login(login).subscribe(
-          (response) => {
-            const tokenCookie = this.cookie.get('jwt');
-            console.log('token',tokenCookie)
-            console.log('Server Response: ', response);
-            this.cookie.set('jwt', this.cookie.get('jwt'),{sameSite:'None',secure:true});
+          (response:any) => {
+            //const tokenCookie = this.cookie.get('jwt');
+            //console.log('token',tokenCookie)
+            //console.log('Server Response: ', response);
+           //this.cookie.set('jwt', response.token);
+            localStorage.setItem('jwt',response.token)
             try {
-              const decodedToken: token = jwtDecode(tokenCookie);
+              const decodedToken: token = jwtDecode(response.token);
               const role = decodedToken.role;
-              console.log(decodedToken);
-              console.log(role);
+              
+              /*console.log(decodedToken);
+              console.log(this.cookie.get('jwt'))
+              console.log(role);*/
+
               if (role == 'admin') {
                 this._snackBar.open('Welcome', 'Close', {
                   duration: 3000,

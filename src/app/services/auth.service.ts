@@ -32,15 +32,15 @@ export class AuthService {
     this.isLoggedInSubject.next(this.isAuth());
   }
   isAuth(): boolean {
-    const token = this.cookieService.get('jwt');
+    const token = localStorage.getItem('jwt');
     //console.log(token)
-    if (this.jwtHelper.isTokenExpired(token) || !token) {
+    if (this.jwtHelper.isTokenExpired(token) && !token) {
       return false;
     }
     return true;
   }
   logout(): /*void*/Observable<any> {
-    this.cookieService.delete('jwt');
+    localStorage.removeItem('jwt');
     this.router.navigate(['login']);
     return this.http.post(`${API_BASE}/users/logout`, {}, { withCredentials: true }).pipe(
       tap(() => {

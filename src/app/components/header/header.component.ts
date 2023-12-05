@@ -1,4 +1,4 @@
-import { Component, Input, OnInit,ChangeDetectorRef } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Cart, CartItem } from 'src/app/models/cart.model';
 import { CartService } from 'src/app/services/cart.service';
 import { Router } from '@angular/router';
@@ -15,8 +15,8 @@ import { jwtDecode } from 'jwt-decode';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit {
-  isLoggedIn: boolean = false; 
-[x: string]: any;
+  isLoggedIn: boolean = false;
+  [x: string]: any;
   searchKeyword: string = '';
 
   private _cart: Cart = { items: [] }
@@ -40,23 +40,23 @@ export class HeaderComponent implements OnInit {
     private auth: AuthService,
     private cdr: ChangeDetectorRef,
     private _snackbar: MatSnackBar,
-    private cookie:CookieService ) { }
+    private cookie: CookieService) { }
 
-    ngOnInit(): void {
-      this.searchService.searchKeyword$.subscribe(keyword => {
-        this.searchKeyword = keyword;
-      });
-      this.auth.isLoggedIn$.pipe(startWith(this.auth.isAuth())).subscribe(isLoggedIn => {
-        this.isLoggedIn = isLoggedIn;
-        this.cdr.detectChanges()
-      });
-      
-    }
-  
-    search() {
-      // Puedes realizar acciones adicionales si es necesario
-      this.searchService.updateSearchKeyword(this.searchKeyword);
-    }
+  ngOnInit(): void {
+    this.searchService.searchKeyword$.subscribe(keyword => {
+      this.searchKeyword = keyword;
+    });
+    this.auth.isLoggedIn$.pipe(startWith(this.auth.isAuth())).subscribe(isLoggedIn => {
+      this.isLoggedIn = isLoggedIn;
+      this.cdr.detectChanges()
+    });
+
+  }
+
+  search() {
+    // Puedes realizar acciones adicionales si es necesario
+    this.searchService.updateSearchKeyword(this.searchKeyword);
+  }
   getTotal(items: Array<CartItem>): number {
     return this.cartService.getTotal(items)
   }
@@ -81,16 +81,18 @@ export class HeaderComponent implements OnInit {
   }
 
   onProfile() {
-    const tokenCookie = this.cookie.get('jwt');
+    const tokenCookie = localStorage.getItem('jwt');
 
     try {
-      const decodedToken: token = jwtDecode(tokenCookie);
-      const role = decodedToken.role;
+      if (tokenCookie !== null) {
+        const decodedToken: token = jwtDecode(tokenCookie);
+        const role = decodedToken.role;
 
-      if(role == 'admin'){
-        this.router.navigate(['/private']);
-      }else if(role == 'customer'){
-        this.router.navigate(['/config']);
+        if (role == 'admin') {
+          this.router.navigate(['/private']);
+        } else if (role == 'customer') {
+          this.router.navigate(['/config']);
+        }
       }
     } catch (error) {
       console.error('Error decoding token:', error);

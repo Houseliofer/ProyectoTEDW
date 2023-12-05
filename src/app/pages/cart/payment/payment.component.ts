@@ -31,22 +31,24 @@ export class PaymentComponent {
     private _snackBar: MatSnackBar,
     private route: Router,
     private addressService: AddressService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
-    const token = this.cookieService.get('jwt');
+    const token = localStorage.getItem('jwt');
+    if (token !== null) {
       const decodedToken: any = jwtDecode(token);
       if (decodedToken) {
         this.userId = decodedToken._id;
 
         this.addressService.getUserAddresses(this.userId)
-        .subscribe((response: any) => {
-          this.userAddresses = response.addresses;
-          console.log('Addresses:', this.userAddresses);
-          this.selectedAddress = this.userAddresses.length>0?this.userAddresses[0]:null;
-        }
-        );
+          .subscribe((response: any) => {
+            this.userAddresses = response.addresses;
+            console.log('Addresses:', this.userAddresses);
+            this.selectedAddress = this.userAddresses.length > 0 ? this.userAddresses[0] : null;
+          }
+          );
       }
+    }
 
     // Obten los elementos del carrito al cargar la vista de checkout
     this.cartItems = this.cartService.getCartItems();
@@ -64,8 +66,8 @@ export class PaymentComponent {
 
   onPay(): void {
     const totalQty = this.cartItems.reduce((total, item) => total + item.quantity, 0);
-    
-    const paymentData ={
+
+    const paymentData = {
       user: this.userId,
       cart: {
         totalQty: totalQty,
@@ -82,20 +84,20 @@ export class PaymentComponent {
       Delivered: false,
     };
 
-    this.http.post('http://localhost:3000/tienda/v1/neworder', paymentData,{ withCredentials: true })
-    .subscribe((response: any) => {
-      //console.log('Payment Data:', paymentData);
-      //console.log('Payment Response:', response);
-      this._snackBar.open('Order placed successfully', 'Close', {
-        duration: 3000,
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-      });
+    this.http.post('http://localhost:3000/tienda/v1/neworder', paymentData, { withCredentials: true })
+      .subscribe((response: any) => {
+        //console.log('Payment Data:', paymentData);
+        //console.log('Payment Response:', response);
+        this._snackBar.open('Order placed successfully', 'Close', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
 
-      this.cartService.clearCart();
-      this.route.navigate(['/config']);
-    }
-    );
+        this.cartService.clearCart();
+        this.route.navigate(['/config']);
+      }
+      );
     // Agrega lógica de pago aquí
     this.paymentService.processPayment(this.getTotalCost());
     console.log('Processing payment...');
