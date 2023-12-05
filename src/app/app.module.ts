@@ -48,6 +48,17 @@ import { ForgotPasswordComponent } from './pages/password/forgot-password/forgot
 import { FooterComponent } from './components/footer/footer.component';
 import { GetCategoriesComponent } from './pages/private/categories/get-categories/get-categories.component';
 import { NewCategoryComponent } from './pages/private/categories/new-category/new-category.component';
+import { GetSuppliersComponent } from './pages/private/supplier/get-suppliers/get-suppliers.component';
+import { NewSupplierComponent } from './pages/private/supplier/new-supplier/new-supplier.component';
+import { GetBrandsComponent } from './pages/private/brands/get-brands/get-brands.component';
+import { NewBrandComponent } from './pages/private/brands/new-brand/new-brand.component';
+import { GetProductsComponent } from './pages/private/products/get-products/get-products.component';
+import { NewProductComponent } from './pages/private/products/new-product/new-product.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { AddressComponent } from './pages/usuario/address/address.component';
+import { ProfileComponent } from './pages/usuario/profile/profile.component';
+import { ProductsComponent } from './pages/usuario/products/products.component';
+
 
 
 @NgModule({
@@ -68,7 +79,16 @@ import { NewCategoryComponent } from './pages/private/categories/new-category/ne
     ForgotPasswordComponent,    
     FooterComponent, 
     GetCategoriesComponent, 
-    NewCategoryComponent  
+    NewCategoryComponent, 
+    GetSuppliersComponent,
+    NewSupplierComponent, 
+    GetBrandsComponent, 
+    NewBrandComponent, 
+    GetProductsComponent,
+     NewProductComponent,
+     AddressComponent,
+     ProfileComponent,
+     ProductsComponent  
   ],
   imports: [
     BrowserModule,
@@ -91,6 +111,7 @@ import { NewCategoryComponent } from './pages/private/categories/new-category/ne
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    MatPaginatorModule,
     
   ],
   providers:  [

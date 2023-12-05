@@ -3,7 +3,7 @@
         <img class="mb-1 mx-auto h-[200px]" 
                 [ngClass]="{'h-200px': !fullWidthMode, 'h-[360px]' : fullWidthMode}"
                 alt=""
-                [src]="product?.images">
+                [src]="product?.images?.[0]">
         <div class="w-full"
             [ngClass]="{'px-8 flex flex-col justify-between':fullWidthMode}">
             <div>

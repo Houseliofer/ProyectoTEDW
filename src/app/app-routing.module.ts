@@ -60,7 +60,9 @@ const routes: Routes = [{
 },
 {
   path:'config',
-  component: ConfigComponent
+  component: ConfigComponent,
+  canActivate: [RoleGuard],
+  data: {expectedRol: 'customer'},
 },
 /*{
   path: '/categories',

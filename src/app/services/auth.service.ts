@@ -13,7 +13,7 @@ const API_BASE = 'http://localhost:3000/tienda/v1';
 })
 export class AuthService {
   private isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isAuth());
-isLoggedIn$: Observable<boolean> = this.isLoggedInSubject.asObservable();
+  isLoggedIn$: Observable<boolean> = this.isLoggedInSubject.asObservable();
 
   constructor(private http: HttpClient,
     private router: Router,

@@ -1,4 +1,4 @@
-import { Component, Renderer2, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { CategoryService } from 'src/app/services/category.service';
 import { Category } from 'src/app/models/category.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -19,16 +19,11 @@ editingCategory: Category | null = null;
 
   constructor(
     private category: CategoryService,
-    private renderer: Renderer2,
     private _snackbar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
-    /*if (window.location.pathname === '/private') {
-      this.renderer.addClass(document.body, 'admin');
-    } else {
-      this.renderer.removeClass(document.body, 'admin');
-    }*/
+
     this.getCategories();
   }
 
@@ -70,6 +65,12 @@ editingCategory: Category | null = null;
     this.showTable = false;
     this.showAddCategoryForm = true;
     this.editingCategory = category;
+  }
+  goBackToList() {
+    this.showTable = true;
+    this.showAddCategoryForm = false;
+    this.editingCategory = null;
+    this.getCategories();
   }
   
 }
