@@ -19,10 +19,11 @@ export class ConfigComponent {
   selectedLink: string = '';
   userId: string = '';
   userProfile: any;
+  
 
   contentStatus: { [key: string]: boolean } = {
-    profile: true,
-    address :false,
+    profile: false,
+    address :true,
     product:false
   };
 
@@ -48,7 +49,9 @@ export class ConfigComponent {
     this.loadUserProfile();
     initFlowbite();
 
+
   }
+  
   loadUserProfile() {
     this.store.profile(this.userId).subscribe(
       (response: any) => {

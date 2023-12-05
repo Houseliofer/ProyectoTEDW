@@ -9,7 +9,8 @@ import { _MatListItemGraphicBase } from '@angular/material/list';
 })
 export class CartService {
 
-  cart = new BehaviorSubject<Cart>({items:[]});
+  private cartKey = 'cart'
+  cart = new BehaviorSubject<Cart>(this.getStoredCart());
 
   constructor(private _snackBar: MatSnackBar) { }
 
@@ -24,7 +25,7 @@ export class CartService {
       items.push(item)
     }
 
-    this.cart.next({items: items})
+    this.updateCart({items})
     this._snackBar.open('1 Item added to cart.','Ok',{duration: 3000})
   }
 
@@ -35,7 +36,7 @@ export class CartService {
   }
 
   clearCart():void{
-    this.cart.next({items:[]})
+    this.updateCart({ items: [] });
     this._snackBar.open('Cart is cleared.','Ok',{
       duration:3000
     })
@@ -47,7 +48,7 @@ export class CartService {
       )
 
       if (update) {
-        this.cart.next({items:filteredItems})
+        this.updateCart({ items: filteredItems });
         this._snackBar.open('1 Item removed from cart','Ok',{
           duration:3000
         })
@@ -73,9 +74,21 @@ export class CartService {
       filteredItems = this.removeFromCart(itemForRemoval, false)
     }
 
-    this.cart.next({items: filteredItems})
+    this.updateCart({ items: filteredItems });
     this._snackBar.open('1 item removed from cart.','Ok',{
       duration: 3000
     })
+  }
+
+  private updateCart(cart:Cart):void{
+    this.cart.next(cart)
+    localStorage.setItem(this.cartKey,JSON.stringify(cart))
+  }
+  getCartItems():Array<CartItem>{
+    return this.cart.value.items
+  }
+  private getStoredCart(): Cart {
+    const storedCart = localStorage.getItem(this.cartKey);
+    return storedCart ? JSON.parse(storedCart) : { items: [] };
   }
 }

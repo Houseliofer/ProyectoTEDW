@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Cart, CartItem } from 'src/app/models/cart.model';
 import { Product } from 'src/app/models/product.model';
+import { CartService } from 'src/app/services/cart.service';
 import { StoreService } from 'src/app/services/store.service';
 
 @Component({
@@ -16,7 +18,8 @@ export class ProductDetailComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private productService: StoreService
+    private productService: StoreService,
+    private cartService: CartService
   ) { }
 
   ngOnInit(): void {
@@ -37,6 +40,17 @@ export class ProductDetailComponent {
         }
       });
     }
+  }
+
+  onAddToCart(): void {
+    const item: CartItem = {
+      product: this.product.product.images[0],
+      id: this.product.product._id,
+      name: this.product.product.name,
+      price: this.product.product.price,
+      quantity: 1,
+    };
+    this.cartService.addToCart(item);
   }
 
   isRopaCategory():boolean {

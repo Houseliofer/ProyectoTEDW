@@ -58,6 +58,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { AddressComponent } from './pages/usuario/address/address.component';
 import { ProfileComponent } from './pages/usuario/profile/profile.component';
 import { ProductsComponent } from './pages/usuario/products/products.component';
+import { PaymentComponent } from './pages/cart/payment/payment.component';
+import { EditComponent } from './pages/usuario/address/edit/edit.component';
 
 
 
@@ -88,7 +90,9 @@ import { ProductsComponent } from './pages/usuario/products/products.component';
      NewProductComponent,
      AddressComponent,
      ProfileComponent,
-     ProductsComponent  
+     ProductsComponent,
+     PaymentComponent,
+     EditComponent  
   ],
   imports: [
     BrowserModule,
