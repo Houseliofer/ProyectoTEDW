@@ -1,0 +1,31 @@
+<!-- edit-address.component.html -->
+
+<div class="container mx-auto my-8 p-8 bg-white shadow-md rounded-md">
+    <h2 class="text-2xl font-bold mb-4">Edit Address</h2>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
+      <div>
+        <label for="street" class="block text-sm font-medium text-gray-700">Street</label>
+        <input type="text" id="street" formControlName="street" class="mt-1 p-2 border rounded-md w-full">
+      </div>
+  
+      <div>
+        <label for="city" class="block text-sm font-medium text-gray-700">City</label>
+        <input type="text" id="city" formControlName="city" class="mt-1 p-2 border rounded-md w-full">
+      </div>
+  
+      <div>
+        <label for="state" class="block text-sm font-medium text-gray-700">State</label>
+        <input type="text" id="state" formControlName="state" class="mt-1 p-2 border rounded-md w-full">
+      </div>
+  
+      <div>
+        <label for="zip" class="block text-sm font-medium text-gray-700">ZIP Code</label>
+        <input type="text" id="zip" formControlName="zip" class="mt-1 p-2 border rounded-md w-full">
+      </div>
+  
+      <div class="flex justify-end">
+        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Update Address</button>
+      </div>
+    </form>
+  </div>
+  

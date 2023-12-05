@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { jwtDecode } from 'jwt-decode';
 import { token } from 'src/app/models/token.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { StoreService } from 'src/app/services/store.service';
+import { Address } from 'src/app/models/address.model';
+import { AddressService } from 'src/app/services/address.service';
+import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
   selector: 'app-address',
@@ -13,15 +16,24 @@ import { StoreService } from 'src/app/services/store.service';
   ]
 })
 export class AddressComponent {
-  form: FormGroup;
+  //addresses: {};
+  userAddresses: Address[] = [];
   userId: string = '';
+
+  editAddress(address: any) {
+    console.log('Address:', address);
+  }
+
+  form: FormGroup;
   userProfile: any;
 
   constructor(
     private fb: FormBuilder,
     private cookie: CookieService,
     private _snackBar: MatSnackBar,
-    private store: StoreService
+    private store: StoreService,
+    private addressService: AddressService,
+    private modalService: ModalService
   ) { 
     this.form = this.fb.group({
       street: ['', Validators.required],
@@ -29,12 +41,95 @@ export class AddressComponent {
       state: ['', Validators.required],
       zip: ['', Validators.required],
     });
+
   }
 
+  loadAddresses() {
+ // Obtén el ID del usuario de tu servicio de autenticación
+    this.addressService.getUserAddresses(this.userId).subscribe(
+      (addresses:any) => {
+        this.userAddresses = addresses.addresses;
+      },
+      (error) => {
+        console.error('Error fetching addresses:', error);
+      }
+    );
+  }
+  onAddAddress() {
+    const newAddress : Address={
+      street: this.form.value.street,
+      city: this.form.value.city,
+      state: this.form.value.state,
+      zip: this.form.value.zip,
+    }
+
+    this.addressService.addAddress(this.userId, newAddress).subscribe(
+      () => {
+        this.loadAddresses();
+        this._snackBar.open('Address added', 'Close', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+        this.form.reset();
+      },
+      (error) => {
+        this._snackBar.open('Error adding address', 'Close', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+        console.error('Error adding address:', error);
+      }
+    );
+    //console.log('Address:', newAddress);
+
+  }
+
+  onDeleteAddress(addressId: any) {
+    this.addressService.deleteAddress(this.userId, addressId).subscribe(
+      ()=>{
+        this.loadAddresses();
+        this._snackBar.open('Address deleted', 'Close', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+      },
+      (error)=>{
+        this._snackBar.open('Error deleting address', 'Close', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+      }
+    );
+    
+  }
   ngOnInit(): void {
     this.userId = this.getUserIdFromToken();
-    this.loadUserProfile();
+    //this.loadUserProfile();
+    // this.loadAddresses();
+    this.loadAddresses();
+    this.form.reset();
   }
+
+  /*loadAddresses() {
+    this.store.getAddresses(this.userId).subscribe(
+      (response: any) => {
+        console.log('Addresses:', response);
+        this.addresses = response;
+      },
+      (error: any) => {
+        this._snackBar.open('Error loading addresses', 'Close', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+        //console.log('Error loading addresses:', error);
+      }
+    )
+  }*/
 
   getUserIdFromToken(): string {
     const tokenCookie = this.cookie.get('jwt');
@@ -54,29 +149,6 @@ export class AddressComponent {
     }
   }
 
-  loadUserProfile() {
-    this.store.profile(this.userId).subscribe(
-      (response: any) => {
-        console.log('User Profile:', response);
-        this.userProfile = response;
-
-        this.form.get('street')?.setValue(this.userProfile.data.street);
-        this.form.get('zip')?.setValue(this.userProfile.data.zip);
-        this.form.get('city')?.setValue(this.userProfile.data.city);
-        this.form.get('state')?.setValue(this.userProfile.data.state);
-
-        this.form.updateValueAndValidity();
-      },
-      (error: any) => {
-        this._snackBar.open('Error loading user profile', 'Close', {
-          duration: 3000,
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        });
-        //console.log('Error loading user profile:', error);
-      }
-    )
-  }
 
   onSubmit() {
     if(this.form.valid){
