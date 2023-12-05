@@ -7,6 +7,7 @@ import { StoreService } from 'src/app/services/store.service';
 import { jwtDecode } from 'jwt-decode';
 import { token } from 'src/app/models/token.model';
 import { CookieService } from 'ngx-cookie-service';
+import { AddressService } from 'src/app/services/address.service';
 
 @Component({
   selector: 'app-config',
@@ -23,8 +24,8 @@ export class ConfigComponent {
 
   contentStatus: { [key: string]: boolean } = {
     profile: false,
-    address :true,
-    product:false
+    address :false,
+    products: true
   };
 
   constructor(

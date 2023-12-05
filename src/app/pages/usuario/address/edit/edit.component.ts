@@ -42,25 +42,25 @@ export class EditComponent {
   ngOnInit(): void {
     const addressIdParam = this.route.snapshot.paramMap.get('id');
     this.addressId = addressIdParam !== null ? addressIdParam : '';
-    this.loadAddress();
+    //this.loadAddress();
 
   }
 
-  loadAddress() {
-    this.addressService.getAddressById(this.addressId).subscribe(
-      (address: any) => {
-        this.form.patchValue({
-          street: address.street,
-          city: address.city,
-          state: address.state,
-          zip: address.zip,
-        });
-      },
-      (error) => {
-        console.error('Error loading address:', error);
-      }
-    );
-  }
+  // loadAddress() {
+  //   this.addressService.getAddressById(this.addressId).subscribe(
+  //     (address: any) => {
+  //       this.form.patchValue({
+  //         street: address.street,
+  //         city: address.city,
+  //         state: address.state,
+  //         zip: address.zip,
+  //       });
+  //     },
+  //     (error) => {
+  //       console.error('Error loading address:', error);
+  //     }
+  //   );
+  // }
   onSubmit() {
     if (this.form.valid) {
       const updatedAddress = {
