@@ -27,7 +27,9 @@ export class StoreService {
     return this.http.get<Product[]>(`${API_BASE}products`);
   }
 
-  
+  getUserOrders(userId:String): Observable<any> {
+    return this.http.get<any>(`${API_BASE}myordes/${userId}`, { withCredentials: true });
+  }  
 
 
   searchproduct(word: String) {

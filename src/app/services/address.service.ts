@@ -18,8 +18,8 @@ export class AddressService {
     return this.http.get<any>(`${this.apiUrl}/myAddresses/${userId}`,{ withCredentials: true } );
   }
 
-  getAddressById(addressId: string) {
-    return this.http.get<any>(`${this.apiUrl}/myAddress/${addressId}`,{ withCredentials: true } );
+  getAddressById(userId:string, addressId: string) {
+    return this.http.get<any>(`${this.apiUrl}/addressbyId/${userId}/${addressId}`,{ withCredentials: true } );
   }
   addAddress(userId:string,address: Address) {
     return this.http.post(`${this.apiUrl}/newAddress/${userId}`, address,{ withCredentials: true });
