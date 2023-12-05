@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CookieService } from 'ngx-cookie-service';
 import { jwtDecode } from 'jwt-decode';
 import { token } from 'src/app/models/token.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -42,7 +41,6 @@ export class AddressComponent {
 
   constructor(
     private fb: FormBuilder,
-    private cookie: CookieService,
     private _snackBar: MatSnackBar,
     private store: StoreService,
     private addressService: AddressService,

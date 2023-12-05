@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../services/auth.service';
 import { token } from '../models/token.model';
 import { jwtDecode } from 'jwt-decode';
@@ -13,14 +12,13 @@ export class RoleGuard implements CanActivate {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private cookieService: CookieService
   ) { }
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
     const expectedRole = route.data['expectedRol'];
-    console.log('role guard', expectedRole)
+    //console.log('role guard', expectedRole)
     const tokenCookie = localStorage.getItem('jwt');
-    console.log('token guard',tokenCookie)
+    //console.log('token guard',tokenCookie)
 
     if (tokenCookie !== null) {
       const tokenParts = tokenCookie.split('.');

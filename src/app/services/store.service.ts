@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Address } from '../models/address.model';
 import { Category } from '../models/category.model';
 
-const API_BASE = 'http://18.207.153.86:3000/tienda/v1/'
+const API_BASE = 'http://54.225.6.133:3000/tienda/v1/'
 @Injectable({
   providedIn: 'root'
 })
@@ -27,7 +27,9 @@ export class StoreService {
     return this.http.get<Product[]>(`${API_BASE}products`);
   }
 
-  
+  getUserOrders(userId:String): Observable<any> {
+    return this.http.get<any>(`${API_BASE}myordes/${userId}`, { withCredentials: true });
+  }  
 
 
   searchproduct(word: String) {
@@ -56,7 +58,7 @@ export class StoreService {
     return this.http.post<User>(`${API_BASE}users/register`, user);
   }
   updateUsuario(id:String,data:any){
-    return this.http.patch(`${API_BASE}users/editprofile/${id}`,data)
+    return this.http.patch(`${API_BASE}users/editprofile/${id}`,data,{ withCredentials: true })
   }
   //-----------------------PASSWORD----------------------
   forgotPassword(data: any) {
@@ -74,29 +76,29 @@ export class StoreService {
   }
   //------------------SUPPLIERS-----------------------------------
   getSuppliers():Observable<any>{
-    return this.http.get<any>(`${API_BASE}suppliers`)
+    return this.http.get<any>(`${API_BASE}suppliers`,{ withCredentials: true })
   }
   deleteSupplier(id: string): Observable<any> {
-    return this.http.delete(`${API_BASE}deletesupplier/${id}`);
+    return this.http.delete(`${API_BASE}deletesupplier/${id}`,{ withCredentials: true });
   }
   newSupplier(data: any): Observable<any> {
-    return this.http.post<any>(`${API_BASE}Newsupplier`, data);
+    return this.http.post<any>(`${API_BASE}Newsupplier`, data,{ withCredentials: true });
   }
   updateSupplier(id: string, data:any){
-    return this.http.patch(`${API_BASE}updatesupplier/${id}`,data)
+    return this.http.put(`${API_BASE}updatesupplier/${id}`,data,{ withCredentials: true })
   }
   //---------------------BRANDS--------------------------------
   getBrands():Observable<any>{
-    return this.http.get<any>(`${API_BASE}brands`)
+    return this.http.get<any>(`${API_BASE}brands`,{ withCredentials: true })
   }
   deleteBrand(id: string): Observable<any> {
-    return this.http.delete(`${API_BASE}deletebrand/${id}`);
+    return this.http.delete(`${API_BASE}deletebrand/${id}`,{ withCredentials: true });
   }
   newBrand(data: any): Observable<any> {
-    return this.http.post<any>(`${API_BASE}Newbrand`, data);
+    return this.http.post<any>(`${API_BASE}Newbrand`, data,{ withCredentials: true });
   }
   updateBrand(id: string, data:any){
-    return this.http.patch(`${API_BASE}updatebrand/${id}`,data)
+    return this.http.put(`${API_BASE}updatebrand/${id}`,data,{ withCredentials: true })
   }
 
 ///-------------PRODUCT----------------------------

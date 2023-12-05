@@ -54,21 +54,21 @@ export class EditComponent {
   }
  
 
-  loadAddress() {
-    this.addressService.getAddressById(this.addressId).subscribe(
-      (address: any) => {
-        this.form.patchValue({
-          street: address.street,
-          city: address.city,
-          state: address.state,
-          zip: address.zip,
-        });
-      },
-      (error) => {
-        console.error('Error loading address:', error);
-      }
-    );
-  }
+  // loadAddress() {
+  //   this.addressService.getAddressById(this.addressId).subscribe(
+  //     (address: any) => {
+  //       this.form.patchValue({
+  //         street: address.street,
+  //         city: address.city,
+  //         state: address.state,
+  //         zip: address.zip,
+  //       });
+  //     },
+  //     (error) => {
+  //       console.error('Error loading address:', error);
+  //     }
+  //   );
+  // }
   onSubmit() {
     if (this.form.valid) {
       const updatedAddress = {

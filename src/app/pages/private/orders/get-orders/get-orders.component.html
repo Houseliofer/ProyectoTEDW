@@ -17,15 +17,15 @@
       </ng-container>
       <ng-container matColumnDef="user">
         <th mat-header-cell *matHeaderCellDef class="px-4"> User </th>
-        <td mat-cell *matCellDef="let order" class="px-4"> {{ order.user.name}} {{order.user.lastname}}</td>
+        <td mat-cell *matCellDef="let order" class="px-4"> {{ order.user?.name}} {{order.user?.lastname}}</td>
       </ng-container>
       <ng-container matColumnDef="Address">
         <th mat-header-cell *matHeaderCellDef class="px-4"> Address </th>
-        <td mat-cell *matCellDef="let order" class="px-4"> {{ order.address }} </td>
+        <td mat-cell *matCellDef="let order" class="px-4"> {{ order?.address }} </td>
       </ng-container>
       <ng-container matColumnDef="createdAt">
         <th mat-header-cell *matHeaderCellDef class="px-4"> Create At </th>
-        <td mat-cell *matCellDef="let order" class="px-4"> {{ order.createdAt }} </td>
+        <td mat-cell *matCellDef="let order" class="px-4"> {{ order?.createdAt }} </td>
       </ng-container>
       <ng-container matColumnDef="delivered">
         <th mat-header-cell *matHeaderCellDef class="px-4"> Delivered </th>
