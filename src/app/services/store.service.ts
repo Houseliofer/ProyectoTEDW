@@ -52,7 +52,10 @@ export class StoreService {
   newUser(user: User): Observable<User> {
     return this.http.post<User>(`${API_BASE}users/register`, user);
   }
-  
+  updateUsuario(id: string, data:any){
+    return this.http.put(`${API_BASE}users/editprofile/${id}`,data,{ withCredentials: true })
+  }
+ 
   //-----------------------PASSWORD----------------------
   forgotPassword(data: any) {
     return this.http.post(`${API_BASE}forgot-password`, data)
@@ -97,5 +100,9 @@ newProduct(data: any): Observable<any> {
 }
 deleteProduct(id:string): Observable<any>{
   return this.http.delete(`${API_BASE}deleteProduct/${id}`,{ withCredentials: true })
+}
+updateProduct(id:string, data:any){
+  return this.http.patch(`${API_BASE}updateProduct/${id}`,data,{ withCredentials: true })
+
 }
 }

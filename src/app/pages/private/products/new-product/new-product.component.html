@@ -1,124 +1,149 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="max-w-sm mx-auto">
-    <div class="mb-5">
-        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product name</label>
-        <input type="text" formControlName="name"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required>
-    </div>
-
-    <div class="grid md:grid-cols-2 md:gap-6">
+<div class="block mb-2">
+    <button type="button" (click)="goBackToList()"
+        class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+        Back to List
+    </button>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="max-w-sm mx-auto">
         <div class="mb-5">
-            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-            <input type="number" formControlName="price"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                required>
-        </div>
-        <div class="mb-5">
-            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stock</label>
-            <input type="number" formControlName="quantity"
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product name</label>
+            <input type="text" formControlName="name"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 required>
         </div>
 
-    </div>
-    <div class="mb-5">
-        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Material</label>
-        <input type="text" formControlName="material"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required>
-    </div>
+        <div class="grid md:grid-cols-2 md:gap-6">
+            <div class="mb-5">
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
+                <input type="number" formControlName="price"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    required>
+            </div>
+            <div class="mb-5">
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stock</label>
+                <input type="number" formControlName="quantity"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    required>
+            </div>
 
-    <div class="flex flex-col space-y-4 mb-2">
-        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Colors</label>
-        <div *ngFor="let color of colorInputs; let i = index" class="flex space-x-2 items-center">
-            <label class="mr-2">Color {{ i + 1 }}:</label>
-            <input type="color" formArrayName="colors" (change)="onColorChange($event, i)" class="mr-2" />
-            <button type="button" (click)="removeColor(i)"
-                class="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-200 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-3 py-2.5">
-                Eliminar
+        </div>
+        <div class="mb-5">
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Material</label>
+            <input type="text" formControlName="material"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                required>
+        </div>
+        <!--INTENTO DE EDICION DE COLORES-->
+        <div class="flex flex-col space-y-4 mb-2">
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Colors</label>
+            <div *ngFor="let colorControl of colorInputs; let i = index" class="flex space-x-2 items-center">
+                <label class="mr-2">Color {{ i + 1 }}:</label>
+                <input type="color" formArrayName="colors" (change)="onColorChange($event, i)" class="mr-2"
+                    value="{{colorInputs.at(i)?.value}}" />
+                <button type="button" (click)="removeColor(i)"
+                    class="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-200 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-3 py-2.5">
+                    Eliminar
+                </button>
+            </div>
+            <button type="button" (click)="addToColorForm()"
+                class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5">
+                Agregar color
             </button>
         </div>
-        <button type="button" (click)="addToColorForm()"
-            class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5">
-            Agregar color
-        </button>
-    </div>
 
 
 
-    <!-- new-product.component.html -->
-    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-    <select
-        class="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        formControlName="category">
-        <option selected disabled>Choose a category</option>
-        <option *ngFor="let category of categories" [value]="category._id">{{category.categoria}}</option>
-    </select>
+        <!--ESTE ES EL BUENO-->
 
-    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Supplier</label>
-    <select formControlName="supplier"
-        class="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-        <option selected disabled>Choose a supplier</option>
-        <option *ngFor="let supplier of suppliers" [value]="supplier._id">{{ supplier.supplier }}</option>
-    </select>
-
-    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Brand</label>
-    <select formControlName="brand"
-        class="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-        <option selected disabled>Choose a brand</option>
-        <option *ngFor="let brand of brands" [value]="brand._id">{{ brand.brand}}</option>
-    </select>
-
-    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">highlights</label>
-    <textarea formControlName="highlights" rows="4"
-        class="block mb-4  w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="Leave a comment..."></textarea>
-
-    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Details</label>
-    <textarea formControlName="details" rows="4"
-        class="block mb-4  w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="Leave a comment..."></textarea>
-
-    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-    <textarea formControlName="description" rows="4"
-        class="block mb-4  w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="Leave a comment..."></textarea>
-
-
-    <div class="flex items-center mb-4 justify-center w-full">
-        <label for="dropzone-file"
-            class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-            <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                </svg>
-                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to
-                        upload</span> or drag and drop</p>
-                <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+        <!--<div class="flex flex-col space-y-4 mb-2">
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Colors</label>
+            <div *ngFor="let color of colorInputs; let i = index" class="flex space-x-2 items-center">
+                <label class="mr-2">Color {{ i + 1 }}:</label>
+                <input type="color" formArrayName="colors" (change)="onColorChange($event, i)" class="mr-2" />
+                <button type="button" (click)="removeColor(i)"
+                    class="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-200 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-3 py-2.5">
+                    Eliminar
+                </button>
             </div>
-            <input formArrayName="images" id="dropzone-file" type="file" class="hidden" (change)="onFileChange($event)"
-                multiple />
+            <button type="button" (click)="addToColorForm()"
+                class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5">
+                Agregar color
+            </button>
+        </div>-->
 
-        </label>
-        <div *ngIf="imagesArray && imagesArray.length > 0" class="w-full mt-4">
-            <h2 class="text-lg font-semibold mb-2">Selected Images:</h2>
+        <!-- Category Dropdown -->
+        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
+        <select
+            class="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            formControlName="category" [(ngModel)]="selectedCategory">
+            <option [value]="null" disabled>Choose a category</option>
+            <option *ngFor="let category of categories" [value]="category._id">{{ category.categoria }}</option>
+        </select>
 
-            <div *ngFor="let imageControl of imagesArray?.controls; let i = index"
-                class="flex items-center justify-between border-b border-gray-300 py-2">
+        <!-- Supplier Dropdown -->
+        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Supplier</label>
+        <select formControlName="supplier" [(ngModel)]="selectedSupplier"
+            class="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option [value]="null" disabled>Choose a supplier</option>
+            <option *ngFor="let supplier of suppliers" [value]="supplier._id">{{ supplier.supplier }}</option>
+        </select>
 
-                <div class="flex items-center">
+        <!-- Brand Dropdown -->
+        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Brand</label>
+        <select formControlName="brand" [(ngModel)]="selectedBrand"
+            class="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option [value]="null" disabled>Choose a brand</option>
+            <option *ngFor="let brand of brands" [value]="brand._id">{{ brand.brand }}</option>
+        </select>
+
+        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">highlights</label>
+        <textarea formControlName="attributes" rows="4"
+            class="block mb-4  w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Leave a comment..."></textarea>
+
+        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Details</label>
+        <textarea formControlName="details" rows="4"
+            class="block mb-4  w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Leave a comment..."></textarea>
+
+        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+        <textarea formControlName="description" rows="4"
+            class="block mb-4  w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Leave a comment..."></textarea>
+
+
+        <div class="flex items-center mb-4 justify-center w-full">
+            <label for="dropzone-file"
+                class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                    <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                    </svg>
+                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to
+                            upload</span> or drag and drop</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                </div>
+                <input formArrayName="images" id="dropzone-file" type="file" class="hidden"
+                    (change)="onFileChange($event)" multiple />
+
+            </label>
+            <div *ngIf="imagesArray && imagesArray.length > 0" class="w-full mt-4">
+                <h2 class="text-lg font-semibold mb-2">Selected Images:</h2>
+              
+                <div *ngFor="let imageControl of imagesArray?.controls; let i = index"
+                  class="flex items-center justify-between border-b border-gray-300 py-2">
+              
+                  <div class="flex items-center">
                     <img [src]="imageControl.value" alt="Selected Image" class="w-12 h-12 object-cover mr-2">
                     <span class="text-gray-700 dark:text-gray-300">{{ i + 1 }}</span>
+                  </div>
+                  <button type="button" class="text-red-500 hover:text-red-700"
+                    (click)="removeImage(i)">Remove</button>
                 </div>
-                <button type="button" class="text-red-500 hover:text-red-700" (click)="removeImage(i)">Remove</button>
-            </div>
+              </div>
         </div>
-    </div>
-
-
-
-    <button type="submit"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-</form>
+        <button type="submit"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+    </form>
+</div>

@@ -27,7 +27,8 @@ export class PrivateComponent implements OnInit {
     category: false,
     supplier: false,
     brand:false,
-    product:false
+    product:false,
+    profile:false
   };
 
   constructor(

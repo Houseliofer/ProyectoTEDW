@@ -55,6 +55,7 @@ import { NewBrandComponent } from './pages/private/brands/new-brand/new-brand.co
 import { GetProductsComponent } from './pages/private/products/get-products/get-products.component';
 import { NewProductComponent } from './pages/private/products/new-product/new-product.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { GetProfileComponent } from './pages/private/profile/get-profile/get-profile.component';
 
 
 
@@ -82,7 +83,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     GetBrandsComponent, 
     NewBrandComponent, 
     GetProductsComponent,
-     NewProductComponent  
+     NewProductComponent,
+     GetProfileComponent  
   ],
   imports: [
     BrowserModule,
