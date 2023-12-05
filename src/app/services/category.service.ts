@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Category } from '../models/category.model';
-const API_BASE = 'http://localhost:3000/tienda/v1/'
+const API_BASE = 'http://18.207.153.86:3000/tienda/v1/'
 
 
 @Injectable({

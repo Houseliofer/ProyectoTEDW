@@ -6,7 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Router } from "@angular/router";
 import { Token } from "@angular/compiler";
 
-const API_BASE = 'http://localhost:3000/tienda/v1';
+const API_BASE = 'http://18.207.153.86:3000/tienda/v1';
 
 @Injectable({
   providedIn: 'root',

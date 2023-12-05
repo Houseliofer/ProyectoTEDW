@@ -7,7 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
   providedIn: 'root'
 })
 export class AddressService {
-  private apiUrl = 'http://localhost:3000/tienda/v1';
+  private apiUrl = 'http://18.207.153.86:3000/tienda/v1';
 
   constructor(
     private http: HttpClient,
@@ -30,5 +30,8 @@ export class AddressService {
   }
   deleteAddress(userId:string,addressId: string) {
     return this.http.delete(`${this.apiUrl}/deletemyAddress/${userId}/${addressId}`,{ withCredentials: true });
+  }
+  updateAddress(id:string, data:any){
+    return this.http.patch(`${this.apiUrl}/updatemyAddres/${id}`,data,{ withCredentials: true })
   }
 }

@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Address } from '../models/address.model';
 import { Category } from '../models/category.model';
 
-const API_BASE = 'http://localhost:3000/tienda/v1/'
+const API_BASE = 'http://18.207.153.86:3000/tienda/v1/'
 @Injectable({
   providedIn: 'root'
 })

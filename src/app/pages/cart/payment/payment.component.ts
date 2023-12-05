@@ -83,6 +83,7 @@ export class PaymentComponent {
       createdAt: new Date().toISOString(),
       Delivered: false,
     };
+    console.log(paymentData)
 
     this.http.post('http://localhost:3000/tienda/v1/neworder', paymentData, { withCredentials: true })
       .subscribe((response: any) => {
