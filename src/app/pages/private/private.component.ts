@@ -28,7 +28,8 @@ export class PrivateComponent implements OnInit {
     supplier: false,
     brand:false,
     product:false,
-    profile:false
+    profile:false,
+    orders:true
   };
 
   constructor(
@@ -61,14 +62,17 @@ export class PrivateComponent implements OnInit {
 
     // Muestra el contenido específico
     this.contentStatus[contentType] = true;
+
+    if (contentType !== 'orders') {
+      this.contentStatus['orders'] = false;
+    }
     // Actualiza el enlace seleccionado
   this.selectedLink = contentType;
   }
   onLogout() {
-    this.auth.logout()
-    this.isLoggedIn = false;
-    this.cdr.detectChanges()
-    this.router.navigate(['/login']);
+    this.auth.logout();
+    this.auth.updateLoggedInState();
+    this.router.navigate(['/home']);
     this._snackbar.open('You have logged out', 'Close', {
       duration: 3000,
     });

@@ -108,4 +108,8 @@ updateProduct(id:string, data:any){
   return this.http.patch(`${API_BASE}updateProduct/${id}`,data,{ withCredentials: true })
 
 }
+
+getOrders():Observable<any>{
+  return this.http.get<any>(`${API_BASE}allorders`)
+}
 }
