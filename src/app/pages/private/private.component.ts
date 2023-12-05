@@ -7,7 +7,7 @@ import { startWith } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { jwtDecode } from 'jwt-decode';
 import { token } from 'src/app/models/token.model';
-
+import { initFlowbite } from 'flowbite';
 
 
 
@@ -42,12 +42,14 @@ export class PrivateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
     if (window.location.pathname === '/private') {
       this.renderer.addClass(document.body, 'admin');
     } else {
       this.renderer.removeClass(document.body, 'admin');
     }
     this.onProfile()
+    initFlowbite();
 
 
   }

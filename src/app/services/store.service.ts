@@ -67,6 +67,9 @@ export class StoreService {
   profile(id: string): Observable<User> {
     return this.http.get<User>(`${API_BASE}users/profile/${id}`,{ withCredentials: true });
   }
+  editProfile(id: string, data: any): Observable<User> {
+    return this.http.put<User>(`${API_BASE}users/editprofile/${id}`, data,{ withCredentials: true });
+  }
   //------------------SUPPLIERS-----------------------------------
   getSuppliers():Observable<any>{
     return this.http.get<any>(`${API_BASE}suppliers`)

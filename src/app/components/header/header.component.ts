@@ -6,6 +6,9 @@ import { StoreService } from 'src/app/services/store.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { startWith } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CookieService } from 'ngx-cookie-service';
+import { token } from 'src/app/models/token.model';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-header',
@@ -36,7 +39,8 @@ export class HeaderComponent implements OnInit {
     private router: Router, private searchService: StoreService,
     private auth: AuthService,
     private cdr: ChangeDetectorRef,
-    private _snackbar: MatSnackBar ) { }
+    private _snackbar: MatSnackBar,
+    private cookie:CookieService ) { }
 
     ngOnInit(): void {
       this.searchService.searchKeyword$.subscribe(keyword => {
@@ -77,6 +81,20 @@ export class HeaderComponent implements OnInit {
   }
 
   onProfile() {
-    this.router.navigate(['/config']);
+    const tokenCookie = this.cookie.get('jwt');
+
+    try {
+      const decodedToken: token = jwtDecode(tokenCookie);
+      const role = decodedToken.role;
+
+      if(role == 'admin'){
+        this.router.navigate(['/private']);
+      }else if(role == 'customer'){
+        this.router.navigate(['/config']);
+      }
+    } catch (error) {
+      console.error('Error decoding token:', error);
+      // Trata el error de decodificación del token aquí
+    }
   }
 }
