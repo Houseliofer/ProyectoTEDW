@@ -6,18 +6,17 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {CookieService} from "ngx-cookie-service";
 
 @Injectable()
 export class JwtInterceptorService implements HttpInterceptor {
 
-  constructor(private cookieService: CookieService) {
+  constructor() {
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
     const token = localStorage.getItem('jwt');
-    console.log(token)
+    //console.log(token)
     let req = request;
     if (token) {
       req = request.clone({
