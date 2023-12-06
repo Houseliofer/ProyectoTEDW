@@ -25,9 +25,15 @@ export class AddressComponent {
     this.editingAddress = address;
     this.isEditModalOpen = true;
   }
+
   closeEditModal() {
-    this.isEditModalOpen = false; // Cierra el modal de edit
-    this.editingAddress = null; // Limpia la dirección que se estaba editando
+    this.isEditModalOpen = false;
+    this.editingAddress = null;
+  }
+
+  // Añadir este método para recargar las direcciones después de una actualización exitosa
+  onUpdateSuccess() {
+    this.loadAddresses();
   }
   
   form: FormGroup;

@@ -5,7 +5,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from "@angular/router";
 import { Token } from "@angular/compiler";
 
-const API_BASE = 'http://localhost:3000/tienda/v1';
+const API_BASE = 'http://54.225.6.133:3000/tienda/v1';
 
 @Injectable({
   providedIn: 'root',

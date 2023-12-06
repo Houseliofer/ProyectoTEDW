@@ -13,8 +13,9 @@ import { Address } from 'src/app/models/address.model';
   ]
 })
 export class EditComponent {
-  @Input() editedAddress: Address | null = null;
+  @Input() editedAddress: any | null = null;
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
+  @Output() updateSuccess: EventEmitter<void> = new EventEmitter<void>();
 
 
   form: FormGroup;
@@ -40,28 +41,18 @@ export class EditComponent {
     if (this.editedAddress) {
       this.form.patchValue({
         street: this.editedAddress.street,
-        city:this.editedAddress.city
+        city:this.editedAddress.city,
+        state:this.editedAddress.city,
+        zip:this.editedAddress.zip
       });
     }
-    const addressIdParam = this.route.snapshot.paramMap.get('id');
-    this.addressId = addressIdParam !== null ? addressIdParam : '';
-    //this.loadAddress();
-
-    this.route.paramMap.subscribe(params => {
-      const addressIdParam = params.get('id');
-      console.log('ID del detalle:', addressIdParam);
-    });
+    
+    
   }
   onCloseModal() {
     this.closeModal.emit();
   }
-    //const addressIdParam = this.route.snapshot.paramMap.get('id');
-    /*const addressIdParam = this.route.paramMap.get('token');
-    console.log(addressIdParam)
-    this.addressId = addressIdParam !== null ? addressIdParam : '';
-    this.loadAddress();*/
-
-  
+ 
 
   // loadAddress() {
   //   this.addressService.getAddressById(this.addressId).subscribe(
@@ -87,17 +78,25 @@ export class EditComponent {
         zip: this.form.value.zip,
       };
 
-      this.addressService.editAddress(this.addressId, updatedAddress).subscribe(
+      this.addressService.updateAddress(this.editedAddress?._id, updatedAddress).subscribe(
         (response) => {
           this.snackBar.open('Address updated successfully', 'Close', {
             duration: 3000,
             horizontalPosition: 'center',
             verticalPosition: 'top',
           });
-          this.router.navigate(['/addresses']);
+
+          // Emitir el evento solo si la actualización fue exitosa
+          this.updateSuccess.emit();
+
+          // Cerrar el modal
+          this.onCloseModal();
         },
         (error) => {
-          console.error('Error updating address:', error);
+          console.error('Error occurred:', error);
+          this.snackBar.open('Error updating address', 'Close', {
+            duration: 3000,
+          });
         }
       );
     }
