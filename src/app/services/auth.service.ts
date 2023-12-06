@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { BehaviorSubject, Observable, catchError, map, tap, throwError } from "rxjs";
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { CookieService } from 'ngx-cookie-service';
 import { Router } from "@angular/router";
 import { Token } from "@angular/compiler";
 
@@ -17,8 +16,7 @@ export class AuthService {
 
   constructor(private http: HttpClient,
     private router: Router,
-    private jwtHelper: JwtHelperService,
-    private cookieService: CookieService) { }
+    private jwtHelper: JwtHelperService,) { }
 
     login(data: any) {
       return this.http.post(`${API_BASE}/users/login`, data, { withCredentials: true })

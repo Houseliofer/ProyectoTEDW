@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { token } from 'src/app/models/token.model';
 import { jwtDecode } from 'jwt-decode';
 import { StoreService } from 'src/app/services/store.service';
@@ -21,7 +20,6 @@ export class ProfileComponent {
 
 
   constructor(
-    private cookie: CookieService,
     private store: StoreService,
     private _snackBar: MatSnackBar,
     private fb: FormBuilder

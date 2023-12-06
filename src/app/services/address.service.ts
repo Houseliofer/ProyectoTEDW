@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Address } from '../models/address.model';
-import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +9,7 @@ export class AddressService {
   private apiUrl = 'http://localhost:3000/tienda/v1';
 
   constructor(
-    private http: HttpClient,
-    private cookieService: CookieService
+    private http: HttpClient
   ) { }
 
   getUserAddresses(userId: string) {
